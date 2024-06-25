@@ -85,6 +85,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         }
 
         public void m96x8c38c225(View v) {
+            //noinspection deprecation
             int position = getAdapterPosition();
             if (position != -1 && this.listener != null) {
                 this.listener.onItemClick(CardAdapter.this.serviciosFiltrados.get(position));

@@ -28,8 +28,8 @@ public class PopUp extends DialogFragment {
         super.onStart();
         Dialog dialog = getDialog();
         if (dialog != null) {
-            int width = dpToPx(350);
-            int height = dpToPx(450);
+            int width = dpToPx(370);
+            int height = dpToPx(493);
             Objects.requireNonNull(dialog.getWindow()).setLayout(width, height);
             dialog.getWindow().setGravity(17);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));

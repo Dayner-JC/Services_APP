@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -16,12 +17,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
+
 import androidx.core.view.accessibility.AccessibilityEventCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+/** @noinspection deprecation, deprecation */
 public class NavigationActivity extends AppCompatActivity implements ActionLayoutListener {
     private ImageButton buttonAll;
     private ImageButton buttonBack;
@@ -130,7 +133,6 @@ public class NavigationActivity extends AppCompatActivity implements ActionLayou
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
         }
     }
-
 
     @Override
     protected void onStart() {
@@ -247,5 +249,11 @@ public class NavigationActivity extends AppCompatActivity implements ActionLayou
         buttonDelete.setVisibility(View.GONE);
         imageView.setVisibility(View.VISIBLE);
         topText.setVisibility(View.VISIBLE);
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+        // super.onBackPressed();
     }
 }

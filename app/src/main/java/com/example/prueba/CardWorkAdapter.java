@@ -19,42 +19,47 @@ import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-
+/** @noinspection deprecation, deprecation */
 public class CardWorkAdapter extends RecyclerView.Adapter<CardWorkAdapter.WorkViewHolder> {
-    static WorkItem workItem;
     private final OnItemClickListener listener;
+    private final OnDeleteClickListener deleteListener;
     private final List<WorkItem> workItemList;
 
     public interface OnItemClickListener {
         void onItemClick(WorkItem workItem);
     }
 
-    public CardWorkAdapter(List<WorkItem> workItemList, OnItemClickListener listener) {
+    public interface OnDeleteClickListener {
+        void onDeleteClick(WorkItem workItem, int position);
+    }
+
+    public CardWorkAdapter(List<WorkItem> workItemList, OnItemClickListener listener, OnDeleteClickListener deleteListener) {
         this.workItemList = workItemList;
         this.listener = listener;
+        this.deleteListener = deleteListener;
     }
 
     @NonNull
     @Override
     public WorkViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_work_item, parent, false);
-        return new WorkViewHolder(view, this.listener);
+        return new WorkViewHolder(view, listener, deleteListener, workItemList);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(WorkViewHolder holder, int position) {
-        WorkItem workItem2 = this.workItemList.get(position);
-        holder.dateTextView.setText(workItem2.getDate());
-        holder.titleTextView.setText(workItem2.getTitle());
-        holder.subtitleTextView.setText(workItem2.getSubtitle());
-        holder.progressTextView.setText(workItem2.getProgress() + "%");
-        holder.iconImageView.setImageResource(workItem2.getIconResId());
-        holder.progressText.setText(workItem2.getProgressText());
-        holder.deleteButton.setColorFilter(workItem2.getButton());
+        WorkItem workItem = this.workItemList.get(position);
+        holder.dateTextView.setText(workItem.getDate());
+        holder.titleTextView.setText(workItem.getTitle());
+        holder.subtitleTextView.setText(workItem.getSubtitle());
+        holder.progressTextView.setText(workItem.getProgress() + "%");
+        holder.iconImageView.setImageResource(workItem.getIconResId());
+        holder.progressText.setText(workItem.getProgressText());
+        holder.deleteButton.setColorFilter(workItem.getButton());
         holder.deleteButton.setColorFilter(Color.parseColor("#1D1F3E"));
-        holder.progressBar.setProgress(workItem2.getProgress());
-        if (workItem2.getProgress() == 100) {
+        holder.progressBar.setProgress(workItem.getProgress());
+        if (workItem.getProgress() == 100) {
             changeColors(holder);
         } else {
             resetColors(holder);
@@ -66,35 +71,43 @@ public class CardWorkAdapter extends RecyclerView.Adapter<CardWorkAdapter.WorkVi
         return this.workItemList.size();
     }
 
+    public void removeItem(int position) {
+        workItemList.remove(position);
+        notifyItemRemoved(position);
+    }
+
     public static class WorkViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView dateTextView;
         public ImageButton deleteButton;
         ImageView iconImageView;
         OnItemClickListener listener;
+        OnDeleteClickListener deleteListener;
         ContentLoadingProgressBar progressBar;
         TextView progressText;
         TextView progressTextView;
         TextView subtitleTextView;
         TextView titleTextView;
+        List<WorkItem> workItemList;
 
-        public WorkViewHolder(View itemView, OnItemClickListener listener) {
+        public WorkViewHolder(View itemView, OnItemClickListener listener, OnDeleteClickListener deleteListener, List<WorkItem> workItemList) {
             super(itemView);
             this.deleteButton = itemView.findViewById(R.id.deleteButton);
             this.dateTextView = itemView.findViewById(R.id.date);
             this.titleTextView = itemView.findViewById(R.id.title);
             this.subtitleTextView = itemView.findViewById(R.id.subtitle);
-            this.progressBar =  itemView.findViewById(R.id.seekBar);
+            this.progressBar = itemView.findViewById(R.id.seekBar);
             this.progressTextView = itemView.findViewById(R.id.progressText);
             this.iconImageView = itemView.findViewById(R.id.icon);
-            this.progressText =  itemView.findViewById(R.id.textProgress);
+            this.progressText = itemView.findViewById(R.id.textProgress);
             this.cardView = (CardView) itemView;
             this.listener = listener;
-            itemView.setOnClickListener(WorkViewHolder.this::m101x686671d7);
-        }
+            this.deleteListener = deleteListener;
+            this.workItemList = workItemList;
 
-        public void m101x686671d7(View v) {
-            this.listener.onItemClick(CardWorkAdapter.workItem);
+            itemView.setOnClickListener(v -> listener.onItemClick(workItemList.get(getAdapterPosition())));
+
+            deleteButton.setOnClickListener(v -> deleteListener.onDeleteClick(workItemList.get(getAdapterPosition()), getAdapterPosition()));
         }
     }
 
@@ -132,3 +145,5 @@ public class CardWorkAdapter extends RecyclerView.Adapter<CardWorkAdapter.WorkVi
         }
     }
 }
+
+

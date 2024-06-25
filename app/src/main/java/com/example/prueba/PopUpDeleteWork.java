@@ -11,7 +11,16 @@ import androidx.fragment.app.DialogFragment;
 import java.util.Objects;
 
 public class PopUpDeleteWork extends DialogFragment {
-    private static final int DEFAULT_DIALOG_WIDTH_DP = 300; // Define a default width in dp if needed
+    private static final int DEFAULT_DIALOG_WIDTH_DP = 300;
+    private int position;
+    private OnDeleteWorkListener deleteWorkListener;
+
+    public static PopUpDeleteWork newInstance(int position, OnDeleteWorkListener listener) {
+        PopUpDeleteWork fragment = new PopUpDeleteWork();
+        fragment.position = position;
+        fragment.deleteWorkListener = listener;
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,15 +39,28 @@ public class PopUpDeleteWork extends DialogFragment {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         }
         Button btnCancel = requireView().findViewById(R.id.Button_Cancel_Delete);
+        Button btnAccept = requireView().findViewById(R.id.Button_Accept_Delete);
         btnCancel.setOnClickListener(this::onCancelClicked);
+        btnAccept.setOnClickListener(this::onAcceptClicked);
     }
 
     private void onCancelClicked(View v) {
         dismiss();
     }
 
+    private void onAcceptClicked(View v) {
+        if (deleteWorkListener != null) {
+            deleteWorkListener.onDeleteWork(position);
+        }
+        dismiss();
+    }
+
     private int dpToPx(int dp) {
         float density = getResources().getDisplayMetrics().density;
         return (int) (dp * density);
+    }
+
+    public interface OnDeleteWorkListener {
+        void onDeleteWork(int position);
     }
 }

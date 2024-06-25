@@ -1,6 +1,7 @@
 package com.example.prueba;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -12,10 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.accessibility.AccessibilityEventCompat;
 
-public class WorkDetail extends AppCompatActivity {
+/** @noinspection deprecation, deprecation */
+public class WorkDetail extends AppCompatActivity implements PopUpDeleteWork.OnDeleteWorkListener {
     private boolean isExpanded = false;
     private View scrollView;
     private TextView textDescriptionContent;
+    private int itemPosition; // Posición del ítem a eliminar
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,10 +36,13 @@ public class WorkDetail extends AppCompatActivity {
         button_delete.setOnClickListener(WorkDetail.this::DeleteService);
         text_read_more.setOnClickListener(view -> WorkDetail.this.ReadMore(text_read_more));
         button_back.setOnClickListener(WorkDetail.this::Back);
+
+        // Recibir la posición del ítem desde la intención
+        itemPosition = getIntent().getIntExtra("itemPosition", -1);
     }
 
     public void DeleteService(View v) {
-        showPopUp();
+        showPopUp(itemPosition);
     }
 
     @SuppressLint("SetTextI18n")
@@ -61,8 +67,8 @@ public class WorkDetail extends AppCompatActivity {
         finish();
     }
 
-    private void showPopUp() {
-        PopUpDeleteWork popUp = new PopUpDeleteWork();
+    private void showPopUp(int position) {
+        PopUpDeleteWork popUp = PopUpDeleteWork.newInstance(position, this);
         popUp.setCancelable(false);
         popUp.show(getSupportFragmentManager(), "popup_window");
     }
@@ -86,5 +92,20 @@ public class WorkDetail extends AppCompatActivity {
         View decorView = window.getDecorView();
         int flags = decorView.getSystemUiVisibility();
         decorView.setSystemUiVisibility(flags | 16);
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+        // super.onBackPressed();
+    }
+
+    @Override
+    public void onDeleteWork(int position) {
+        // Aquí puedes eliminar el ítem o realizar la acción que desees al aceptar el popup
+        Intent intent = new Intent();
+        intent.putExtra("deletePosition", position);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/** @noinspection deprecation*/
 public class CardDetail extends AppCompatActivity {
     private Dialog dialog;
     private boolean isExpanded = false;
@@ -380,5 +381,11 @@ public class CardDetail extends AppCompatActivity {
             return 4;
         }
         return 0;
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+        // super.onBackPressed();
     }
 }

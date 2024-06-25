@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 import java.util.Objects;
 
+/** @noinspection deprecation*/
 public class LoginActivity extends AppCompatActivity {
     private EditText email;
     private TextView emailError;
@@ -262,6 +263,12 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NavigationActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+        // super.onBackPressed();
     }
 }
 

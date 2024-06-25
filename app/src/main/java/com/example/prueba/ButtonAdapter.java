@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
+/** @noinspection ALL*/
 public class ButtonAdapter extends RecyclerView.Adapter<ButtonAdapter.ButtonViewHolder> {
     private final CardAdapter brandingAdapter;
     private final RecyclerView brandingRecyclerView;

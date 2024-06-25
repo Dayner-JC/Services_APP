@@ -139,7 +139,6 @@
                     android:paddingEnd="21dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    android:backgroundTint="#efefef"
                     android:autofillHints="none"
                     tools:ignore="VisualLintTextFieldSize" />
 
@@ -191,7 +190,6 @@
                     android:paddingEnd="21dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    android:backgroundTint="#efefef"
                     android:autofillHints="none"
                     tools:ignore="VisualLintTextFieldSize" />
 
@@ -243,7 +241,6 @@
                     android:layout_marginEnd="20dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:backgroundTint="#efefef"
                     android:autofillHints="none"
                     tools:ignore="RtlHardcoded,VisualLintTextFieldSize" />
 
@@ -286,7 +283,6 @@
                     android:layout_marginEnd="20dp"
                     android:autofillHints="password"
                     android:background="@drawable/edit_text_background"
-                    android:backgroundTint="#efefef"
                     android:fontFamily="@font/sf_pro_"
                     android:gravity="center_vertical"
                     android:hint="@string/enter_your_password"
@@ -347,7 +343,6 @@
                     android:layout_marginTop="0dp"
                     android:autofillHints=""
                     android:background="@drawable/edit_text_background"
-                    android:backgroundTint="#efefef"
                     android:fontFamily="@font/sf_pro_"
                     android:gravity="center_vertical"
                     android:hint="   +1"
@@ -371,7 +366,6 @@
                     android:layout_toEndOf="@+id/Country_Number"
                     android:autofillHints=""
                     android:background="@drawable/edit_text_background"
-                    android:backgroundTint="#efefef"
                     android:fontFamily="@font/sf_pro_"
                     android:gravity="center_vertical"
                     android:hint="@string/_000_0000_0000"

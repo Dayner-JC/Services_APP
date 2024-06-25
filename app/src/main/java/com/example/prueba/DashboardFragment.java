@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+/** @noinspection deprecation*/
 public class DashboardFragment extends Fragment implements onDeleteMessagesListener {
     private static final String FILE_NAME = "messages.json";
     private ActionLayoutListener actionLayoutListener;

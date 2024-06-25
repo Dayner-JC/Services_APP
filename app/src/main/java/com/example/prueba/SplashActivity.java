@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.accessibility.AccessibilityEventCompat;
 
+/** @noinspection deprecation*/
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
 
@@ -18,10 +19,10 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(4866);
         setContentView(R.layout.activity_splash);
         setSystemBarsColor(R.color.status_bar);
-        new Handler().postDelayed(SplashActivity.this::m121lambda$onCreate$0$comexamplegodjangoserviceSplashActivity, 1500);
+        new Handler().postDelayed(SplashActivity.this::Next, 1500);
     }
 
-    public void m121lambda$onCreate$0$comexamplegodjangoserviceSplashActivity() {
+    public void Next() {
         Intent mainIntent = new Intent(this, LoginActivity.class);
         startActivity(mainIntent);
         finish();
@@ -32,5 +33,11 @@ public class SplashActivity extends AppCompatActivity {
         window.addFlags(Integer.MIN_VALUE);
         window.clearFlags(AccessibilityEventCompat.TYPE_VIEW_TARGETED_BY_SCROLL);
         window.setStatusBarColor(ContextCompat.getColor(this, colorResId));
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+        // super.onBackPressed();
     }
 }
