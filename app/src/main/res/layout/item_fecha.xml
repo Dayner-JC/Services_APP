@@ -12,7 +12,7 @@
         android:paddingTop="0dp"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
-        android:text="Today"
+        android:text="@string/today"
         android:fontFamily="@font/sf_pro_"
         android:backgroundTint="#f0f0f0"/>
 </LinearLayout>

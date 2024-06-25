@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -14,34 +15,40 @@
             android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <ImageButton
                 android:id="@+id/button_back"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_back"
                 android:layout_alignParentBottom="true"
                 android:backgroundTint="@color/color_selected"
+                android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
             <ImageButton
                 android:id="@+id/button_delete"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_delete_message"
                 android:layout_toEndOf="@+id/button_back"
                 android:backgroundTint="@color/color_selected"
+                android:src="@drawable/ic_delete_message"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
             <ImageButton
                 android:id="@+id/button_all"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_all"
                 android:layout_marginEnd="20dp"
                 android:layout_toEndOf="@+id/button_delete"
                 android:backgroundTint="@color/color_selected"
+                android:src="@drawable/ic_all"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button_delete"/>
+                app:layout_constraintEnd_toStartOf="@+id/button_delete"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
             <TextView
                 android:textSize="21sp"
                 android:textStyle="normal"
@@ -72,7 +79,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1"
-                app:srcCompat="@drawable/logo_home"/>
+                app:srcCompat="@drawable/logo_home"
+                tools:ignore="ContentDescription" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
     <RelativeLayout
@@ -113,5 +121,6 @@
         app:itemPaddingTop="16dp"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/navigation_bar"
-        style="@style/MiBottomNavigationView"/>
+        style="@style/MiBottomNavigationView"
+        tools:ignore="VisualLintBottomNav" />
 </RelativeLayout>

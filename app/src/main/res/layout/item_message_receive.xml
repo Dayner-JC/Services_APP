@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -9,81 +10,90 @@
         android:layout_marginTop="0dp"
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        tools:ignore="UselessParent">
         <ImageView
             android:id="@+id/logo"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginBottom="0dp"
+            android:importantForAccessibility="no"
             android:src="@drawable/ic_message"
             android:scaleType="centerCrop"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"/>
+
         <RelativeLayout
-            android:orientation="vertical"
             android:id="@+id/message_container"
-            android:background="@drawable/message_bubble"
-            android:padding="10dp"
             android:layout_width="242dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/logo">
+            android:layout_marginBottom="0dp"
+            android:layout_toEndOf="@+id/logo"
+            android:background="@drawable/message_bubble"
+            android:orientation="vertical"
+            android:padding="10dp"
+            tools:ignore="TextSizeCheck">
+
             <TextView
-                android:textSize="15sp"
-                android:textColor="@android:color/white"
                 android:id="@+id/sender_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-4dp"
-                android:text="GoDjango LLC"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:fontFamily="@font/sf_pro_semibold"
                 android:layout_marginStart="4dp"
+                android:layout_marginTop="-4dp"
                 android:layout_marginEnd="77dp"
                 android:layout_toStartOf="@+id/date_time"
-                android:layout_alignParentStart="true"/>
+                android:fontFamily="@font/sf_pro_semibold"
+                android:text="@string/godjango_llc"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
             <TextView
-                android:textSize="12sp"
-                android:textColor="@color/white"
                 android:id="@+id/date_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-2dp"
-                android:text="11:57"
                 android:layout_alignParentTop="true"
-                android:fontFamily="@font/sf_pro_"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="-2dp"
                 android:layout_marginEnd="5dp"
-                android:layout_alignParentEnd="true"/>
+                android:fontFamily="@font/sf_pro_"
+                android:text="@string/_11_57"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/date_time"
                 android:layout_marginTop="5dp"
-                android:layout_below="@+id/date_time">
+                android:orientation="vertical">
+
                 <TextView
-                    android:textColor="@color/color_selected"
                     android:id="@+id/reply_message"
-                    android:background="@drawable/reply_background"
-                    android:padding="5dp"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_margin="0dp"
+                    android:background="@drawable/reply_background"
+                    android:backgroundTint="#c9e4f8"
                     android:fontFamily="@font/sf_pro_"
-                    android:backgroundTint="#c9e4f8"/>
+                    android:padding="5dp"
+                    android:textColor="@color/color_selected"
+                    android:visibility="gone" />
+
                 <TextView
-                    android:textSize="16sp"
-                    android:textColor="@android:color/white"
                     android:id="@+id/text_view_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto totam quasi architecto totam."
-                    android:fontFamily="@font/sf_pro_"
                     android:layout_marginStart="5dp"
-                    android:layout_marginEnd="10dp"/>
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/sf_pro_"
+                    android:text="@string/ium_doloremque_laudantium_totam_rem_aperiam_eaque_ipsa_quae_ab_illo_inventore_veritatis_et_quasi_architecto_totam_quasi_architecto_totam"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
             </LinearLayout>
         </RelativeLayout>
         <ImageView
@@ -93,6 +103,7 @@
             android:layout_marginBottom="0dp"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="-11dp"
-            android:layout_toStartOf="@+id/message_container"/>
+            android:layout_toStartOf="@+id/message_container"
+            android:importantForAccessibility="no" />
     </RelativeLayout>
 </RelativeLayout>

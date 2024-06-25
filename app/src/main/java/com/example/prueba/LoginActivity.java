@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         final PasswordToggleTransformationMethod transformationMethod = new PasswordToggleTransformationMethod();
         password.setTransformationMethod(transformationMethod);
 
-        togglePasswordVisibility.setOnClickListener(view -> LoginActivity.this.passwordToggle(transformationMethod, togglePasswordVisibility, view));
+        togglePasswordVisibility.setOnClickListener(view -> LoginActivity.this.passwordToggle(transformationMethod, togglePasswordVisibility));
         emailError.setVisibility(View.GONE);
         passwordError.setVisibility(View.GONE);
         login.setOnClickListener(LoginActivity.this::Verificacion);
@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         });*/
     }
 
-    public void passwordToggle(PasswordToggleTransformationMethod transformationMethod, ImageButton togglePasswordVisibility, View v) {
+    public void passwordToggle(PasswordToggleTransformationMethod transformationMethod, ImageButton togglePasswordVisibility) {
         transformationMethod.togglePasswordVisibility();
         if (transformationMethod.isPasswordVisible) {
             togglePasswordVisibility.setImageResource(R.drawable.ic_hide);

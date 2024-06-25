@@ -1,81 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:padding="8dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <RelativeLayout
-        android:background="@drawable/message_background"
         android:layout_width="242dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
         android:layout_marginEnd="10dp"
-        android:layout_alignParentEnd="true">
+        android:background="@drawable/message_background"
+        tools:ignore="UselessParent,TextSizeCheck">
+
         <TextView
-            android:textSize="12sp"
-            android:textColor="@color/color_selected"
             android:id="@+id/date_time"
             android:layout_width="wrap_content"
             android:layout_height="16dp"
-            android:layout_marginTop="0dp"
-            android:text="12:00"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:fontFamily="@font/sf_pro_"
-            android:textAlignment="center"
             android:layout_marginStart="5dp"
-            android:layout_alignParentStart="true"/>
-        <TextView
-            android:textSize="15sp"
+            android:layout_marginTop="0dp"
+            android:fontFamily="@font/sf_pro_"
+            android:text="@string/_12_00"
+            android:textAlignment="center"
             android:textColor="@color/color_selected"
+            android:textSize="12sp"
+            tools:ignore="TextSizeCheck" />
+
+        <TextView
             android:id="@+id/sender_name"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-4dp"
-            android:text="Yo"
             android:layout_alignParentTop="true"
-            android:fontFamily="@font/sf_pro_semibold"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="-4dp"
             android:layout_marginEnd="10dp"
-            android:layout_alignParentEnd="true"/>
+            android:fontFamily="@font/sf_pro_semibold"
+            android:text="@string/yo"
+            android:textColor="@color/color_selected"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
         <LinearLayout
-            android:orientation="vertical"
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/date_time"
             android:layout_marginTop="5dp"
-            android:layout_below="@+id/date_time">
+            android:orientation="vertical">
+
             <TextView
-                android:textColor="@android:color/white"
                 android:id="@+id/reply_message"
-                android:background="@drawable/reply_background"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="0dp"
+                android:background="@drawable/reply_background"
+                android:backgroundTint="@color/color_selected"
                 android:fontFamily="@font/sf_pro_"
                 android:paddingStart="5dp"
-                android:backgroundTint="@color/color_selected"/>
+                android:textColor="@android:color/white"
+                android:visibility="gone"
+                tools:ignore="RtlSymmetry" />
+
             <TextView
-                android:textSize="16sp"
-                android:textColor="@color/color_selected"
                 android:id="@+id/text_view_message"
-                android:background="@drawable/message_background"
-                android:padding="0dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hola! este es un texto de ejemplo para comprobar el item message"
-                android:fontFamily="@font/sf_pro_"
                 android:layout_marginStart="5dp"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/message_background"
+                android:fontFamily="@font/sf_pro_"
+                android:padding="0dp"
+                android:text="@string/hola_este_es_un_texto_de_ejemplo_para_comprobar_el_item_message"
+                android:textColor="@color/color_selected"
+                android:textSize="16sp" />
         </LinearLayout>
+
         <ImageView
             android:layout_width="17dp"
             android:layout_height="17dp"
-            android:layout_marginTop="-10dp"
-            android:src="@drawable/ic_message"
             android:layout_below="@+id/linearLayout2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="-10dp"
             android:layout_marginEnd="0dp"
-            android:layout_alignParentEnd="true"/>
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_message" />
     </RelativeLayout>
 </RelativeLayout>

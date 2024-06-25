@@ -8,12 +8,8 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.accessibility.AccessibilityEventCompat;
 
 public class WorkDetail extends AppCompatActivity {
@@ -34,17 +30,17 @@ public class WorkDetail extends AppCompatActivity {
         this.textDescriptionContent = findViewById(R.id.text_description_content);
         this.scrollView = findViewById(R.id.ScrollView);
         ImageButton button_delete = findViewById(R.id.Work_button_delete);
-        button_delete.setOnClickListener(WorkDetail.this::m122lambda$onCreate$0$comexamplegodjangoserviceWorkDetail);
-        text_read_more.setOnClickListener(view -> WorkDetail.this.m123lambda$onCreate$1$comexamplegodjangoserviceWorkDetail(text_read_more, view));
-        button_back.setOnClickListener(WorkDetail.this::m124lambda$onCreate$2$comexamplegodjangoserviceWorkDetail);
+        button_delete.setOnClickListener(WorkDetail.this::DeleteService);
+        text_read_more.setOnClickListener(view -> WorkDetail.this.ReadMore(text_read_more));
+        button_back.setOnClickListener(WorkDetail.this::Back);
     }
 
-    public void m122lambda$onCreate$0$comexamplegodjangoserviceWorkDetail(View v) {
+    public void DeleteService(View v) {
         showPopUp();
     }
 
     @SuppressLint("SetTextI18n")
-    public void m123lambda$onCreate$1$comexamplegodjangoserviceWorkDetail(TextView text_read_more, View view) {
+    public void ReadMore(TextView text_read_more) {
         this.isExpanded = !this.isExpanded;
         if (this.isExpanded) {
             this.textDescriptionContent.getLayoutParams().height = -2;
@@ -61,7 +57,7 @@ public class WorkDetail extends AppCompatActivity {
         this.textDescriptionContent.requestLayout();
     }
 
-    public void m124lambda$onCreate$2$comexamplegodjangoserviceWorkDetail(View view) {
+    public void Back(View view) {
         finish();
     }
 

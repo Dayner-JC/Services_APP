@@ -12,7 +12,6 @@ import androidx.fragment.app.DialogFragment;
 import java.util.Objects;
 
 public class PopUp extends DialogFragment {
-    static final boolean $assertionsDisabled = false;
     private Dialog primerDialog;
 
     @Override

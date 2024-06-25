@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
-        android:text="Work in Process"
+        android:text="@string/work_in_process"
         android:layout_alignParentTop="true"
         android:fontFamily="@font/sf_pro_semibold"
         android:layout_marginStart="24dp"

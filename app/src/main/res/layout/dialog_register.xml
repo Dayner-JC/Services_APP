@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
@@ -14,18 +15,20 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:backgroundTint="@color/active_dot_color">
+
         <TextView
-            android:textSize="16sp"
-            android:textColor="@color/white"
             android:id="@+id/Title"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/visual_identity"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:fontFamily="@font/sf_pro_semibold"
             android:layout_marginStart="10dp"
-            android:layout_alignParentStart="true"/>
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/sf_pro_semibold"
+            android:text="@string/visual_identity"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            tools:ignore="TextSizeCheck" />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/relativeLayout2"
@@ -36,54 +39,61 @@
         android:layout_marginBottom="0dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true">
+
         <RelativeLayout
             android:id="@+id/relativeLayout3"
-            android:background="@drawable/edit_text_background"
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:layout_marginTop="-35dp"
-            android:layout_marginBottom="-120dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:backgroundTint="@color/active_dot_color">
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="-35dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="-120dp"
+            android:background="@drawable/edit_text_background"
+            android:backgroundTint="@color/active_dot_color"
+            tools:ignore="TextSizeCheck,VisualLintBounds">
+
             <TextView
-                android:textSize="14sp"
-                android:textColor="@color/white"
                 android:id="@+id/Categoria"
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
-                android:layout_marginBottom="5dp"
-                android:text="@string/branding"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:fontFamily="@font/sf_pro_"
                 android:layout_marginStart="10dp"
-                android:layout_alignParentStart="true"/>
-            <TextView
-                android:textSize="16sp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/sf_pro_"
+                android:text="@string/branding"
                 android:textColor="@color/white"
+                android:textSize="14sp"
+                tools:ignore="TextSizeCheck" />
+
+            <TextView
                 android:id="@+id/Precio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="@string/_20_00"
                 android:layout_alignParentBottom="true"
-                android:fontFamily="@font/sf_pro_semibold"
                 android:layout_marginEnd="0dp"
-                android:layout_toStartOf="@+id/Tiempo"/>
-            <TextView
+                android:layout_marginBottom="5dp"
+                android:layout_toStartOf="@+id/Tiempo"
+                android:fontFamily="@font/sf_pro_semibold"
+                android:text="@string/_20_00"
                 android:textColor="@color/white"
+                android:textSize="16sp"
+                tools:ignore="RelativeOverlap" />
+
+            <TextView
                 android:id="@+id/Tiempo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/month"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:fontFamily="@font/sf_pro_"
                 android:layout_marginEnd="10dp"
-                android:layout_alignParentEnd="true"/>
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/sf_pro_"
+                android:text="@string/month"
+                android:textColor="@color/white" />
         </RelativeLayout>
         <ScrollView
             android:id="@+id/Scroll"
@@ -120,7 +130,7 @@
                     android:hint="@string/name_hint"
                     android:singleLine="false"
                     android:selectAllOnFocus="false"
-                    android:drawableRight="@drawable/ic_user"
+                    android:drawableEnd="@drawable/ic_user"
                     android:layout_below="@+id/text_name"
                     android:inputType="textPersonName"
                     android:textCursorDrawable="@drawable/cursor"
@@ -130,19 +140,22 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:backgroundTint="#efefef"
-                    android:autofillHints="none"/>
+                    android:autofillHints="none"
+                    tools:ignore="VisualLintTextFieldSize" />
+
                 <TextView
-                    android:textSize="12sp"
-                    android:textColor="#ff0101"
                     android:id="@+id/name_error_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/enter_a_name"
-                    android:includeFontPadding="false"
                     android:layout_below="@+id/Name"
-                    android:fontFamily="@font/sf_pro_"
+                    android:layout_alignParentStart="true"
                     android:layout_marginStart="20dp"
-                    android:layout_alignParentStart="true"/>
+                    android:fontFamily="@font/sf_pro_"
+                    android:includeFontPadding="false"
+                    android:text="@string/enter_a_name"
+                    android:textColor="#ff0101"
+                    android:textSize="12sp"
+                    tools:ignore="TextContrastCheck" />
                 <TextView
                     android:textSize="14sp"
                     android:textColor="#1a1a3c"
@@ -155,7 +168,8 @@
                     android:layout_below="@+id/Name"
                     android:fontFamily="@font/sf_pro_semibold"
                     android:layout_marginStart="20dp"
-                    android:layout_alignParentStart="true"/>
+                    android:layout_alignParentStart="true"
+                    tools:ignore="RtlHardcoded" />
                 <EditText
                     android:textColor="#1a1a3c"
                     android:textColorHint="#801d1f3e"
@@ -178,19 +192,22 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:backgroundTint="#efefef"
-                    android:autofillHints="none"/>
+                    android:autofillHints="none"
+                    tools:ignore="VisualLintTextFieldSize" />
+
                 <TextView
-                    android:textSize="12sp"
-                    android:textColor="#ff0101"
                     android:id="@+id/last_name_error_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Enter a last name"
-                    android:includeFontPadding="false"
                     android:layout_below="@+id/Last_Name"
-                    android:fontFamily="@font/sf_pro_"
+                    android:layout_alignParentStart="true"
                     android:layout_marginStart="20dp"
-                    android:layout_alignParentStart="true"/>
+                    android:fontFamily="@font/sf_pro_"
+                    android:includeFontPadding="false"
+                    android:text="@string/enter_a_last_name"
+                    android:textColor="#ff0101"
+                    android:textSize="12sp"
+                    tools:ignore="TextContrastCheck" />
                 <TextView
                     android:textSize="14sp"
                     android:textColor="#1a1a3c"
@@ -227,139 +244,150 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:backgroundTint="#efefef"
-                    android:autofillHints="none"/>
+                    android:autofillHints="none"
+                    tools:ignore="RtlHardcoded,VisualLintTextFieldSize" />
+
                 <TextView
-                    android:textSize="12sp"
-                    android:textColor="#ff0101"
                     android:id="@+id/email_error_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:text="@string/enter_a_email"
-                    android:includeFontPadding="false"
                     android:layout_below="@+id/Email"
-                    android:fontFamily="@font/sf_pro_"
+                    android:layout_alignParentStart="true"
                     android:layout_marginStart="20dp"
-                    android:layout_alignParentStart="true"/>
+                    android:layout_marginTop="0dp"
+                    android:fontFamily="@font/sf_pro_"
+                    android:includeFontPadding="false"
+                    android:text="@string/enter_a_email"
+                    android:textColor="#ff0101"
+                    android:textSize="12sp"
+                    tools:ignore="TextContrastCheck" />
                 <TextView
                     android:textSize="14sp"
                     android:textColor="#1a1a3c"
                     android:id="@+id/text_password"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/password"
                     android:layout_below="@+id/Email"
                     android:fontFamily="@font/sf_pro_semibold"
                     android:layout_marginStart="20dp"
                     android:layout_alignParentStart="true"/>
+
                 <EditText
-                    android:textColor="#1a1a3c"
-                    android:textColorHint="#801d1f3e"
-                    android:gravity="center_vertical"
                     android:id="@+id/Password"
-                    android:background="@drawable/edit_text_background"
                     android:layout_width="334dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="0dp"
-                    android:hint="@string/enter_your_password"
                     android:layout_below="@+id/text_password"
-                    android:inputType="textPassword"
-                    android:textCursorDrawable="@drawable/cursor"
-                    android:fontFamily="@font/sf_pro_"
-                    android:paddingStart="26dp"
-                    android:paddingEnd="21dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="20dp"
+                    android:autofillHints="password"
+                    android:background="@drawable/edit_text_background"
                     android:backgroundTint="#efefef"
-                    android:autofillHints="password"/>
+                    android:fontFamily="@font/sf_pro_"
+                    android:gravity="center_vertical"
+                    android:hint="@string/enter_your_password"
+                    android:inputType="textPassword"
+                    android:paddingStart="26dp"
+                    android:paddingEnd="21dp"
+                    android:textColor="#1a1a3c"
+                    android:textColorHint="#801d1f3e"
+                    android:textCursorDrawable="@drawable/cursor"
+                    tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+
                 <TextView
-                    android:textSize="12sp"
-                    android:textColor="#ff0101"
                     android:id="@+id/password_error_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/enter_a_password"
-                    android:includeFontPadding="false"
                     android:layout_below="@+id/Password"
-                    android:fontFamily="@font/sf_pro_"
+                    android:layout_alignParentStart="true"
                     android:layout_marginStart="20dp"
-                    android:layout_alignParentStart="true"/>
+                    android:fontFamily="@font/sf_pro_"
+                    android:includeFontPadding="false"
+                    android:text="@string/enter_a_password"
+                    android:textColor="#ff0101"
+                    android:textSize="12sp"
+                    tools:ignore="TextContrastCheck" />
+
                 <ImageButton
                     android:id="@+id/Button_Password"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:src="@drawable/ic_view"
                     android:layout_alignTop="@+id/Password"
+                    android:layout_alignEnd="@+id/Password"
+                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_alignEnd="@+id/Password"/>
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_view"
+                    tools:ignore="TouchTargetSizeCheck" />
                 <TextView
                     android:textSize="14sp"
                     android:textColor="#1a1a3c"
                     android:id="@+id/Text_Phone_Number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/phone_number"
                     android:layout_below="@+id/Password"
                     android:fontFamily="@font/sf_pro_semibold"
                     android:layout_marginStart="20dp"
                     android:layout_alignParentStart="true"/>
+
                 <EditText
-                    android:textColor="#1a1a3c"
-                    android:textColorHint="#801d1f3e"
-                    android:gravity="center_vertical"
                     android:id="@+id/Country_Number"
-                    android:background="@drawable/edit_text_background"
                     android:layout_width="80dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="0dp"
-                    android:hint="   +1"
                     android:layout_below="@+id/Text_Phone_Number"
-                    android:inputType="phone"
-                    android:textCursorDrawable="@drawable/cursor"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="0dp"
+                    android:autofillHints=""
+                    android:background="@drawable/edit_text_background"
+                    android:backgroundTint="#efefef"
                     android:fontFamily="@font/sf_pro_"
+                    android:gravity="center_vertical"
+                    android:hint="   +1"
+                    android:inputType="phone"
                     android:paddingStart="15dp"
                     android:paddingEnd="21dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_alignParentStart="true"
-                    android:backgroundTint="#efefef"
-                    android:autofillHints=""/>
-                <EditText
                     android:textColor="#1a1a3c"
                     android:textColorHint="#801d1f3e"
-                    android:gravity="center_vertical"
+                    android:textCursorDrawable="@drawable/cursor"
+                    tools:ignore="HardcodedText,TextContrastCheck" />
+
+                <EditText
                     android:id="@+id/Phone_Number"
-                    android:background="@drawable/edit_text_background"
                     android:layout_width="80dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="0dp"
-                    android:hint="@string/_000_0000_0000"
                     android:layout_below="@+id/Text_Phone_Number"
-                    android:inputType="phone"
-                    android:textCursorDrawable="@drawable/cursor"
-                    android:fontFamily="@font/sf_pro_"
-                    android:paddingStart="26dp"
-                    android:paddingEnd="21dp"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="0dp"
                     android:layout_marginEnd="20dp"
                     android:layout_toEndOf="@+id/Country_Number"
-                    android:layout_alignParentEnd="true"
+                    android:autofillHints=""
+                    android:background="@drawable/edit_text_background"
                     android:backgroundTint="#efefef"
-                    android:autofillHints=""/>
+                    android:fontFamily="@font/sf_pro_"
+                    android:gravity="center_vertical"
+                    android:hint="@string/_000_0000_0000"
+                    android:inputType="phone"
+                    android:paddingStart="26dp"
+                    android:paddingEnd="21dp"
+                    android:textColor="#1a1a3c"
+                    android:textColorHint="#801d1f3e"
+                    android:textCursorDrawable="@drawable/cursor"
+                    tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
                 <TextView
                     android:textSize="14sp"
                     android:textColor="#1a1a3c"
                     android:id="@+id/Text_Country"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/country"
                     android:layout_below="@+id/Phone_Number"
@@ -381,14 +409,15 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"/>
+                    android:layout_alignParentEnd="true"
+                    tools:ignore="RtlSymmetry" />
                 <TextView
                     android:textSize="14sp"
                     android:textColor="#1a1a3c"
                     android:id="@+id/Text_Payment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/payment"
                     android:layout_below="@+id/Country"
@@ -407,7 +436,8 @@
                     android:layout_below="@+id/Country"
                     android:fontFamily="@font/sf_pro_semibold"
                     android:layout_marginStart="20dp"
-                    android:layout_alignParentStart="true"/>
+                    android:layout_alignParentStart="true"
+                    tools:ignore="RtlHardcoded" />
                 <EditText
                     android:textSize="16sp"
                     android:textColor="#1a1a3c"
@@ -422,7 +452,8 @@
                     android:paddingStart="26dp"
                     android:layout_marginStart="20dp"
                     android:layout_alignParentStart="true"
-                    android:importantForAutofill="no"/>
+                    android:importantForAutofill="no"
+                    tools:ignore="RtlSymmetry" />
                 <TextView
                     android:textSize="16sp"
                     android:textColor="#1a1a3c"
@@ -436,12 +467,14 @@
                     android:fontFamily="@font/sf_pro_"
                     android:paddingStart="50dp"
                     android:layout_marginEnd="20dp"
-                    android:layout_alignParentEnd="true"/>
+                    android:layout_alignParentEnd="true"
+                    tools:ignore="RtlSymmetry" />
                 <ImageView
                     android:background="@drawable/paypal_background"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginTop="8dp"
+                    android:importantForAccessibility="no"
                     android:src="@drawable/ic_paypal"
                     android:layout_alignTop="@+id/Payment"
                     android:layout_marginStart="8dp"
@@ -464,6 +497,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="23dp"
+                    android:importantForAccessibility="no"
                     android:src="@drawable/ic_alert"
                     android:layout_below="@+id/Payment"
                     android:layout_marginStart="20dp"
@@ -488,6 +522,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:stateListAnimator="@null"
-            android:backgroundTint="@color/active_dot_color"/>
+            android:backgroundTint="@color/active_dot_color"
+            tools:ignore="VisualLintButtonSize" />
     </RelativeLayout>
 </RelativeLayout>

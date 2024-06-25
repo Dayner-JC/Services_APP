@@ -1,84 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="270dp"
     android:layout_height="230dp"
-    android:layout_marginBottom="8dp"
     android:layout_marginStart="20dp"
+    android:layout_marginBottom="8dp"
     app:cardCornerRadius="25dp"
-    app:cardElevation="4dp">
+    app:cardElevation="4dp"
+    tools:ignore="TextSizeCheck">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView
             android:id="@+id/card_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/image1"
+            android:importantForAccessibility="no"
             android:scaleType="centerCrop"
-            android:importantForAccessibility="no"/>
+            android:src="@drawable/image1" />
+
         <TextView
-            android:textSize="16sp"
-            android:textColor="@color/color_selected"
-            android:layout_gravity="bottom"
             android:id="@+id/card_label"
-            android:background="#e6ffffff"
-            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#e6ffffff"
+            android:fontFamily="@font/sf_pro_semibold"
+            android:padding="10dp"
             android:text=""
-            android:fontFamily="@font/sf_pro_semibold"/>
+            android:textColor="@color/color_selected"
+            android:textSize="16sp"
+            tools:ignore="VisualLintOverlap" />
+
         <RelativeLayout
             android:id="@+id/textCard"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
-                android:textSize="16sp"
-                android:textColor="@color/active_dot_color"
                 android:id="@+id/categoria"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:text="@string/branding"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:fontFamily="@font/sf_pro_"
                 android:layout_marginStart="19dp"
-                android:layout_alignParentStart="true"/>
-            <TextView
-                android:textSize="16sp"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/sf_pro_"
+                android:text="@string/branding"
                 android:textColor="@color/active_dot_color"
+                android:textSize="16sp" />
+
+            <TextView
                 android:id="@+id/titulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:text="@string/visual_identity"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:fontFamily="@font/sf_pro_semibold"
                 android:layout_marginStart="18dp"
-                android:layout_alignParentStart="true"/>
-            <TextView
-                android:textSize="16sp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/sf_pro_semibold"
+                android:text="@string/visual_identity"
                 android:textColor="@color/active_dot_color"
+                android:textSize="16sp" />
+
+            <TextView
                 android:id="@+id/precio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="0dp"
-                android:text="@string/_20_00"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:fontFamily="@font/sf_pro_semibold"
                 android:layout_marginEnd="66dp"
-                android:layout_alignParentEnd="true"/>
-            <TextView
-                android:textSize="15sp"
+                android:layout_marginBottom="0dp"
+                android:fontFamily="@font/sf_pro_semibold"
+                android:text="@string/_20_00"
                 android:textColor="@color/active_dot_color"
+                android:textSize="16sp"
+                tools:ignore="RelativeOverlap" />
+
+            <TextView
                 android:id="@+id/tiempo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
-                android:text="@string/month"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:fontFamily="@font/sf_pro_"
                 android:layout_marginEnd="19dp"
-                android:layout_alignParentEnd="true"/>
+                android:layout_marginBottom="1dp"
+                android:fontFamily="@font/sf_pro_"
+                android:text="@string/month"
+                android:textColor="@color/active_dot_color"
+                android:textSize="15sp"
+                tools:ignore="RelativeOverlap" />
         </RelativeLayout>
     </FrameLayout>
 </androidx.cardview.widget.CardView>

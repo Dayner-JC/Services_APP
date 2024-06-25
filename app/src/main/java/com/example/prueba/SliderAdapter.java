@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderViewHolder>{
-    private List<SliderItem> sliderItems;
-    private ViewPager2 viewPager2;
+    private final List<SliderItem> sliderItems;
+    private final ViewPager2 viewPager2;
 
     public SliderAdapter(List<SliderItem> sliderItems, ViewPager2 viewPager2){
         this.sliderItems = sliderItems;
@@ -26,9 +26,9 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     public SliderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new SliderViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(
-                                R.layout.slide_item_container,
-                                parent,
-                                false
+                        R.layout.slide_item_container,
+                        parent,
+                        false
                 )
         );
     }
@@ -46,7 +46,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         return sliderItems.size();
     }
 
-    class SliderViewHolder extends RecyclerView.ViewHolder{
+    static class SliderViewHolder extends RecyclerView.ViewHolder{
        private final RoundedImageView imageView;
 
        SliderViewHolder(@NonNull View itemView){

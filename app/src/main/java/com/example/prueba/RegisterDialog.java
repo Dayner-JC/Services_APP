@@ -29,11 +29,11 @@ public class RegisterDialog extends BottomSheetDialogFragment {
         final PasswordToggleTransformationMethod transformationMethod = new PasswordToggleTransformationMethod();
         password_edit_text.setTransformationMethod(transformationMethod);
         PasswordToggleTransformationMethod PasswordToggleTransformationMethod = new PasswordToggleTransformationMethod();
-        password_visible.setOnClickListener(view2 -> RegisterDialog.onViewCreated(PasswordToggleTransformationMethod, password_visible, password_edit_text, view2));
+        password_visible.setOnClickListener(view2 -> RegisterDialog.onViewCreated(PasswordToggleTransformationMethod, password_visible, password_edit_text));
         button_accept_request.setOnClickListener(RegisterDialog.this::AcceptRequest);
     }
 
-    public static void onViewCreated(PasswordToggleTransformationMethod transformationMethod, ImageButton password_visible, EditText password_edit_text, View v) {
+    public static void onViewCreated(PasswordToggleTransformationMethod transformationMethod, ImageButton password_visible, EditText password_edit_text) {
         transformationMethod.togglePasswordVisibility();
         if (transformationMethod.isPasswordVisible) {
             password_visible.setImageResource(R.drawable.ic_hide);

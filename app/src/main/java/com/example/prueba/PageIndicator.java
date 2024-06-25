@@ -12,20 +12,20 @@ public class PageIndicator extends RelativeLayout {
 
     public PageIndicator(Context context) {
         super(context);
-        init(context);
+        init();
     }
 
     public PageIndicator(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        init();
     }
 
     public PageIndicator(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        init();
     }
 
-    private void init(Context context) {
+    private void init() {
     }
 
     public void setCount(int count) {

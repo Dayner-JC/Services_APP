@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="248dp"
         android:layout_marginTop="0dp"
+        android:importantForAccessibility="no"
         android:src="@drawable/branding1"
         android:scaleType="centerCrop"
         android:layout_alignParentTop="true"
@@ -27,30 +29,34 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:backgroundTint="@color/active_dot_color">
+
         <TextView
-            android:textSize="16sp"
-            android:textColor="@color/white"
             android:id="@+id/Title"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/visual_identity"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:fontFamily="@font/sf_pro_semibold"
             android:layout_marginStart="10dp"
-            android:layout_alignParentStart="true"/>
-        <TextView
-            android:textSize="14sp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/sf_pro_semibold"
+            android:text="@string/visual_identity"
             android:textColor="@color/white"
+            android:textSize="16sp"
+            tools:ignore="TextSizeCheck" />
+
+        <TextView
             android:id="@+id/Categoria"
             android:layout_width="wrap_content"
             android:layout_height="28dp"
-            android:layout_marginBottom="5dp"
-            android:text="@string/branding"
+            android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:fontFamily="@font/sf_pro_"
             android:layout_marginStart="10dp"
-            android:layout_alignParentStart="true"/>
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/sf_pro_"
+            android:text="@string/branding"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            tools:ignore="TextSizeCheck" />
         <TextView
             android:textSize="16sp"
             android:textColor="@color/white"
@@ -62,7 +68,8 @@
             android:layout_alignParentBottom="true"
             android:fontFamily="@font/sf_pro_semibold"
             android:layout_marginEnd="0dp"
-            android:layout_toStartOf="@+id/Tiempo"/>
+            android:layout_toStartOf="@+id/Tiempo"
+            tools:ignore="RelativeOverlap" />
         <TextView
             android:textColor="@color/white"
             android:id="@+id/Tiempo"
@@ -87,31 +94,35 @@
             android:id="@+id/description_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
-                android:textSize="14sp"
-                android:textColor="#787878"
                 android:id="@+id/text_description_content"
                 android:layout_width="wrap_content"
                 android:layout_height="74dp"
-                android:layout_marginTop="0dp"
-                android:text="Hola este es un texto de prueba para ver como se                 ve el disenio de la descripcion de las cards dentro de un relativeLayoyt c                 ontenido por un scrollView vertical bla bla bla bla bla bla bla blabla                 bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla blabla                 bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla blabla                 bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla bla  b                 la bla blabla bla bla blabla bla bla blabla bla bla bla bla bla blabla bla"
-                android:layout_alignParentTop="true"
-                android:fontFamily="@font/sf_pro_"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="0dp"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"/>
-            <TextView
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:fontFamily="@font/sf_pro_"
+                android:text="Hola este es un texto de prueba para ver como se                 ve el disenio de la descripcion de las cards dentro de un relativeLayoyt c                 ontenido por un scrollView vertical bla bla bla bla bla bla bla blabla                 bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla blabla                 bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla blabla                 bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla bla  b                 la bla blabla bla bla blabla bla bla blabla bla bla bla bla bla blabla bla"
+                android:textColor="#787878"
                 android:textSize="14sp"
-                android:textColor="@color/active_dot_color"
+                tools:ignore="HardcodedText,TextContrastCheck,VisualLintLongText" />
+
+            <TextView
                 android:id="@+id/text_read_more"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:text="@string/read_more"
                 android:layout_below="@+id/text_description_content"
-                android:fontFamily="@font/sf_pro_"
+                android:layout_alignParentEnd="true"
                 android:layout_marginEnd="24dp"
-                android:layout_alignParentEnd="true"/>
+                android:fontFamily="@font/sf_pro_"
+                android:text="@string/read_more"
+                android:textColor="@color/active_dot_color"
+                android:textSize="14sp"
+                tools:ignore="TextSizeCheck" />
             <TextView
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -172,20 +183,23 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:stateListAnimator="@null"
-            android:backgroundTint="@color/active_dot_color"/>
+            android:backgroundTint="@color/active_dot_color"
+            tools:ignore="VisualLintButtonSize" />
     </RelativeLayout>
+
     <ImageButton
         android:id="@+id/Button_back"
-        android:background="@drawable/button_send_background"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginTop="20dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_send_background"
+        android:backgroundTint="#b3ffffff"
         android:importantForAccessibility="no"
         android:paddingStart="-2dp"
         android:paddingEnd="2dp"
-        android:layout_marginStart="40dp"
-        android:layout_alignParentStart="true"
-        android:backgroundTint="#b3ffffff"
-        app:srcCompat="@drawable/ic_back_button"/>
+        app:srcCompat="@drawable/ic_back_button"
+        tools:ignore="TouchTargetSizeCheck" />
 </RelativeLayout>

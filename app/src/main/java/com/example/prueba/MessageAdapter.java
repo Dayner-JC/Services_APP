@@ -20,9 +20,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final int TIPO_FECHA = 2;
-    private static final int TIPO_MENSAJE_ENTRANTE = 1;
-    private static final int TIPO_MENSAJE_SALIENTE = 0;
     private final List<Message> messageList;
 
     public MessageAdapter(List<Message> messageList) {

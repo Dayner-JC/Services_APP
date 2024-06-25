@@ -1,55 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#f8f9fa"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:textAlignment="textStart">
+
     <Button
-        android:textColor="#1a1a3c"
         android:id="@+id/button"
-        android:background="@drawable/button_background"
-        android:paddingLeft="125dp"
         android:layout_width="376dp"
         android:layout_height="50dp"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_below="@+id/button2"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
-        android:text="@string/continue_with_google"
-        android:layout_below="@+id/button2"
-        android:layout_alignWithParentIfMissing="false"
-        android:textAllCaps="false"
-        android:fontFamily="@font/sf_pro_"
-        android:textAlignment="textStart"
-        android:stateListAnimator="@null"
+        android:background="@drawable/button_background"
         android:backgroundTint="#efefef"
-        android:layout_marginHorizontal="20dp"
+        android:fontFamily="@font/sf_pro_"
+        android:paddingStart="125dp"
+        android:stateListAnimator="@null"
+        android:text="@string/continue_with_google"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="#1a1a3c"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:ignore="RtlSymmetry,TextContrastCheck,VisualLintButtonSize" />
+
     <Button
-        android:textColor="#1a1a3c"
         android:id="@+id/button2"
-        android:background="@drawable/button_background"
-        android:paddingLeft="123dp"
         android:layout_width="376dp"
         android:layout_height="50dp"
+        android:layout_below="@+id/textView2"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="26dp"
         android:layout_marginRight="20dp"
-        android:text="@string/continue_with_apple"
-        android:includeFontPadding="false"
-        android:layout_below="@+id/textView2"
-        android:textAllCaps="false"
-        android:fontFamily="@font/sf_pro_"
-        android:textAlignment="viewStart"
-        android:stateListAnimator="@null"
+        android:background="@drawable/button_background"
         android:backgroundTint="#efefef"
-        android:layout_marginHorizontal="20dp"
+        android:fontFamily="@font/sf_pro_"
+        android:includeFontPadding="false"
+        android:paddingStart="123dp"
+        android:stateListAnimator="@null"
+        android:text="@string/continue_with_apple"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="#1a1a3c"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="50.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"/>
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        tools:ignore="RtlSymmetry,TextContrastCheck,VisualLintButtonSize" />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/logoContainer"
         android:background="@drawable/border_backgraund"
@@ -60,21 +65,14 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="360dp"
-            android:layout_height="253dp"
-            android:layout_marginBottom="-15dp"
-            android:layout_marginStart="48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:importantForAccessibility="no"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/godjango_frase"/>
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/logo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_login" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <TextView
         android:textSize="24sp"
@@ -114,7 +112,7 @@
         android:hint="@string/enter_your_email"
         android:singleLine="false"
         android:selectAllOnFocus="false"
-        android:drawableRight="@drawable/email_icon"
+        android:drawableEnd="@drawable/email_icon"
         android:layout_below="@+id/welcomeText"
         android:inputType="textEmailAddress"
         android:textCursorDrawable="@drawable/cursor"
@@ -125,26 +123,28 @@
         android:layout_marginEnd="20dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:autofillHints="none"/>
+        android:autofillHints="none"
+        tools:ignore="VisualLintTextFieldSize" />
+
     <TextView
-        android:textSize="12sp"
-        android:textColor="#ff0101"
         android:id="@+id/email_error_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:text="@string/enter_a_email"
-        android:includeFontPadding="false"
         android:layout_below="@+id/email"
-        android:fontFamily="@font/sf_pro_"
+        android:layout_alignParentStart="true"
         android:layout_marginStart="20dp"
-        android:layout_alignParentStart="true"/>
+        android:layout_marginTop="0dp"
+        android:fontFamily="@font/sf_pro_"
+        android:includeFontPadding="false"
+        android:text="@string/enter_a_email"
+        android:textColor="#ff0101"
+        android:textSize="12sp"
+        tools:ignore="TextContrastCheck" />
     <TextView
         android:textSize="14sp"
         android:textColor="#1a1a3c"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="13dp"
         android:text="@string/password"
         android:layout_below="@+id/email"
@@ -174,29 +174,34 @@
         android:layout_alignParentEnd="true"
         android:autofillHints="password"
         app:layout_constraintEnd_toEndOf="parent"
-        app:passwordToggleEnabled="true"/>
+        app:passwordToggleEnabled="true"
+        tools:ignore="VisualLintTextFieldSize" />
+
     <TextView
-        android:textSize="12sp"
-        android:textColor="#ff0101"
         android:id="@+id/password_error_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/enter_a_password"
-        android:includeFontPadding="false"
         android:layout_below="@+id/password"
-        android:fontFamily="@font/sf_pro_"
+        android:layout_alignParentStart="true"
         android:layout_marginStart="20dp"
-        android:layout_alignParentStart="true"/>
+        android:fontFamily="@font/sf_pro_"
+        android:includeFontPadding="false"
+        android:text="@string/enter_a_password"
+        android:textColor="#ff0101"
+        android:textSize="12sp"
+        tools:ignore="TextContrastCheck" />
+
     <ImageButton
         android:id="@+id/togglePasswordVisibility"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:src="@drawable/ic_view"
         android:layout_alignTop="@+id/password"
+        android:layout_alignEnd="@+id/password"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="20dp"
-        android:layout_alignEnd="@+id/password"/>
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_view"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
     <Button
         android:textSize="15sp"
         android:textStyle="normal"
@@ -214,7 +219,8 @@
         android:fontFamily="@font/sf_pro_semibold"
         android:stateListAnimator="@null"
         android:backgroundTint="#1d1f3e"
-        android:layout_marginHorizontal="20dp"/>
+        android:layout_marginHorizontal="20dp"
+        tools:ignore="VisualLintButtonSize" />
     <TextView
         android:textSize="14sp"
         android:textColor="#1a1a3c"
@@ -253,27 +259,29 @@
         android:layout_alignParentEnd="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
+
     <Button
-        android:textSize="15sp"
-        android:textColor="#1a1a3c"
         android:id="@+id/button3"
-        android:background="@drawable/button_background"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/guest"
         android:layout_below="@+id/loginButton"
-        android:onClick="Guest"
-        android:textAllCaps="false"
-        android:fontFamily="@font/sf_pro_semibold"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:stateListAnimator="@null"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/button_background"
         android:backgroundTint="#e7e7e7"
+        android:fontFamily="@font/sf_pro_semibold"
+        android:onClick="Guest"
+        android:stateListAnimator="@null"
+        android:text="@string/guest"
+        android:textAllCaps="false"
+        android:textColor="#1a1a3c"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TextContrastCheck,VisualLintButtonSize" />
     <TextView
         android:textColor="#1d1f3e"
         android:id="@+id/text_forget"
@@ -286,30 +294,34 @@
         android:layout_marginEnd="17dp"
         android:layout_alignParentEnd="true"
         app:layout_constraintEnd_toEndOf="parent"/>
+
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="4dp"
+        android:layout_alignStart="@+id/button2"
         android:layout_alignTop="@+id/button2"
+        android:layout_alignEnd="@+id/button2"
         android:layout_alignBottom="@+id/button2"
         android:layout_marginStart="83dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="233dp"
-        android:layout_alignStart="@+id/button2"
-        android:layout_alignEnd="@+id/button2"
+        android:layout_marginBottom="4dp"
         android:backgroundTint="#00ffffff"
-        app:srcCompat="@drawable/apple_icon"/>
+        app:srcCompat="@drawable/apple_icon"
+        tools:ignore="ContentDescription,ImageContrastCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
     <ImageButton
         android:id="@+id/imageButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:layout_alignTop="@+id/button"
-        android:layout_marginStart="83dp"
-        android:layout_marginEnd="233dp"
         android:layout_alignStart="@+id/button"
+        android:layout_alignTop="@+id/button"
         android:layout_alignEnd="@+id/button"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="231dp"
         android:backgroundTint="#001d1f3e"
-        app:srcCompat="@drawable/google_icon"/>
+        app:srcCompat="@drawable/google_icon"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 </RelativeLayout>

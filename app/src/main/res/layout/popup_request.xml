@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/popup_request_background"
     android:layout_width="350dp"
     android:layout_height="450dp"
     android:backgroundTint="#d9d9d9">
+
     <TextView
-        android:textSize="15sp"
-        android:textColor="@color/active_dot_color"
-        android:gravity="center"
         android:id="@+id/Top_Text"
         android:layout_width="119dp"
         android:layout_height="54dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/you_have_requested_one_nof_our_services"
-        android:layout_alignParentTop="true"
-        android:fontFamily="@font/sf_pro_semibold"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
+        android:fontFamily="@font/sf_pro_semibold"
+        android:gravity="center"
+        android:text="@string/you_have_requested_one_nof_our_services"
+        android:textColor="@color/active_dot_color"
+        android:textSize="15sp"
+        tools:ignore="TextSizeCheck" />
     <RelativeLayout
         android:id="@+id/relativeLayout4"
         android:background="@color/white"
@@ -48,19 +51,21 @@
             android:layout_marginEnd="100dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"/>
+
         <TextView
-            android:textSize="12sp"
-            android:textColor="@color/active_dot_color"
             android:id="@+id/Text_Campos"
             android:layout_width="95dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/name_nlast_name_nemail_npayment_nphone_number_ncountry"
             android:layout_below="@+id/Text_Receipt"
-            android:lineSpacingExtra="2dp"
-            android:fontFamily="@font/sf_pro_semibold"
+            android:layout_alignParentStart="true"
             android:layout_marginStart="30dp"
-            android:layout_alignParentStart="true"/>
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf_pro_semibold"
+            android:lineSpacingExtra="2dp"
+            android:text="@string/name_nlast_name_nemail_npayment_nphone_number_ncountry"
+            android:textColor="@color/active_dot_color"
+            android:textSize="12sp"
+            tools:ignore="TextSizeCheck" />
         <TextView
             android:textSize="12sp"
             android:textColor="@color/active_dot_color"
@@ -85,19 +90,21 @@
             android:layout_marginEnd="10dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"/>
+
         <TextView
-            android:textSize="12sp"
-            android:textColor="@color/active_dot_color"
             android:id="@+id/Text_Payment"
             android:layout_width="95dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/amount_paid_nprice_service"
             android:layout_below="@+id/horizontalLine"
-            android:lineSpacingExtra="2dp"
-            android:fontFamily="@font/sf_pro_semibold"
+            android:layout_alignParentStart="true"
             android:layout_marginStart="30dp"
-            android:layout_alignParentStart="true"/>
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf_pro_semibold"
+            android:lineSpacingExtra="2dp"
+            android:text="@string/amount_paid_nprice_service"
+            android:textColor="@color/active_dot_color"
+            android:textSize="12sp"
+            tools:ignore="TextSizeCheck" />
         <TextView
             android:textSize="12sp"
             android:textColor="@color/active_dot_color"
@@ -121,18 +128,20 @@
             android:layout_marginEnd="10dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"/>
+
         <TextView
-            android:textSize="12sp"
-            android:textColor="@color/active_dot_color"
             android:id="@+id/Text_Total"
             android:layout_width="95dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/total_to_pay"
             android:layout_below="@+id/horizontalLine2"
-            android:fontFamily="@font/sf_pro_semibold"
+            android:layout_alignParentStart="true"
             android:layout_marginStart="30dp"
-            android:layout_alignParentStart="true"/>
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf_pro_semibold"
+            android:text="@string/total_to_pay"
+            android:textColor="@color/active_dot_color"
+            android:textSize="12sp"
+            tools:ignore="TextSizeCheck" />
         <TextView
             android:textSize="12sp"
             android:textColor="@color/active_dot_color"

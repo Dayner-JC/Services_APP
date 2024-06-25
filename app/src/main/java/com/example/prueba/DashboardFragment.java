@@ -36,7 +36,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-
 public class DashboardFragment extends Fragment implements onDeleteMessagesListener {
     private static final String FILE_NAME = "messages.json";
     private ActionLayoutListener actionLayoutListener;
@@ -81,11 +80,11 @@ public class DashboardFragment extends Fragment implements onDeleteMessagesListe
         this.replyingToText.setVisibility(View.GONE);
         final RelativeLayout messageLayout = view.findViewById(R.id.message_layout);
 
-        buttonSend.setOnClickListener(view2 -> DashboardFragment.this.m103xe81eb2e0(messageLayout, view2));
+        buttonSend.setOnClickListener(view2 -> DashboardFragment.this.m103xe81eb2e0(messageLayout));
         ItemTouchHelper itemTouchHelper = getItemTouchHelper(messageLayout);
         itemTouchHelper.attachToRecyclerView(this.recyclerView);
 
-        this.cancel_reply.setOnClickListener(view2 -> DashboardFragment.this.m104x5d98d921(messageLayout, view2));
+        this.cancel_reply.setOnClickListener(view2 -> DashboardFragment.this.m104x5d98d921(messageLayout));
         this.handler = new Handler(Looper.getMainLooper());
 
         programarActualizacionDiaria();
@@ -119,7 +118,7 @@ public class DashboardFragment extends Fragment implements onDeleteMessagesListe
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void m103xe81eb2e0(RelativeLayout messageLayout, View v) {
+    public void m103xe81eb2e0(RelativeLayout messageLayout) {
         Message nuevoMensaje;
         String messageText = this.editTextMessage.getText().toString();
         if (!messageText.trim().isEmpty()) {
@@ -167,7 +166,7 @@ public class DashboardFragment extends Fragment implements onDeleteMessagesListe
         this.recyclerView.scrollToPosition(this.messageList.size() - 1);
     }
 
-    public void m104x5d98d921(RelativeLayout messageLayout, View v) {
+    public void m104x5d98d921(RelativeLayout messageLayout) {
         this.cancel_reply.setVisibility(View.GONE);
         this.replyingToText.setVisibility(View.GONE);
         this.mensajeAResponder = null;

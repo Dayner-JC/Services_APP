@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -26,51 +27,57 @@
         android:layout_width="match_parent"
         android:layout_height="66dp"
         android:layout_alignParentBottom="true">
+
         <TextView
-            android:textColor="#ffffff"
             android:id="@+id/reply_message"
-            android:background="@drawable/message_reply"
             android:layout_width="100dp"
             android:layout_height="62dp"
-            android:layout_marginBottom="-17dp"
-            android:text="Respuesta de prueba"
             android:layout_above="@+id/edit_text_message"
-            android:fontFamily="@font/sf_pro_"
-            android:paddingStart="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="70.5dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"/>
-        <EditText
-            android:textColorHint="#801d1f3e"
-            android:id="@+id/edit_text_message"
-            android:background="@drawable/edit_text_background"
-            android:layout_width="20dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="0dp"
-            android:hint="@string/message"
-            android:layout_alignParentBottom="true"
-            android:inputType="text"
-            android:textCursorDrawable="@drawable/cursor"
+            android:layout_marginBottom="-17dp"
+            android:background="@drawable/message_reply"
             android:fontFamily="@font/sf_pro_"
             android:paddingStart="20dp"
+            android:text="@string/respuesta_de_prueba"
+            android:textColor="#ffffff"
+            tools:ignore="RtlSymmetry,TextSizeCheck,TextContrastCheck,VisualLintOverlap" />
+
+        <EditText
+            android:id="@+id/edit_text_message"
+            android:layout_width="20dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginBottom="0dp"
             android:layout_toStartOf="@+id/button_send"
-            android:layout_alignParentStart="true"
+            android:autofillHints="false"
+            android:background="@drawable/edit_text_background"
             android:backgroundTint="#f6f6f6"
-            android:autofillHints="false"/>
+            android:fontFamily="@font/sf_pro_"
+            android:hint="@string/message"
+            android:inputType="text"
+            android:paddingStart="20dp"
+            android:textColorHint="#801d1f3e"
+            android:textCursorDrawable="@drawable/cursor"
+            tools:ignore="RtlSymmetry,TextContrastCheck,VisualLintTextFieldSize" />
+
         <ImageButton
             android:id="@+id/button_send"
-            android:background="@drawable/button_send_background"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginBottom="0dp"
-            android:src="@drawable/ic_send"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="10dp"
-            android:layout_alignParentEnd="true"
-            android:backgroundTint="#f6f6f6"/>
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/button_send_background"
+            android:backgroundTint="#f6f6f6"
+            android:src="@drawable/ic_send"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
         <ImageButton
             android:id="@+id/cancel_reply"
             android:background="@color/color_selected"
@@ -81,6 +88,7 @@
             android:layout_alignTop="@+id/reply_message"
             android:layout_marginEnd="7dp"
             android:layout_alignEnd="@+id/reply_message"
-            app:srcCompat="@drawable/ic_cancel_reply"/>
+            app:srcCompat="@drawable/ic_cancel_reply"
+            tools:ignore="ContentDescription" />
     </RelativeLayout>
 </RelativeLayout>
