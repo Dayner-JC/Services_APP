@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    </style>
+
+<style name="DialogAnimation">
+    <item name="android:windowEnterAnimation">@anim/slide_in_register</item>
+    <item name="android:windowExitAnimation">@anim/slide_out_register</item>
+</style>
+
+    <style name="MiBottomNavigationView" parent="">
+        <item name="android:fontFamily">@font/sf_pro</item>
+        <item name="itemTextAppearanceActive">@style/MiBottomNavigationViewTextAppearanceActive</item>
+        <item name="itemTextAppearanceInactive">@style/MiBottomNavigationViewTextAppearanceInactive</item>
+    </style>
+    <style name="MiBottomNavigationViewTextAppearanceActive" parent="@style/TextAppearance.MaterialComponents.Caption">
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/sf_pro</item>
+    </style>
+    <style name="MiBottomNavigationViewTextAppearanceInactive" parent="@style/TextAppearance.MaterialComponents.Caption">
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/sf_pro</item>
+    </style>
+
+</resources>

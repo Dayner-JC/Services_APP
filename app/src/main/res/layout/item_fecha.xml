@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_horizontal"
+    android:padding="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:textSize="16sp"
+        android:textColor="@color/color_selected"
+        android:id="@+id/text_view_fecha"
+        android:background="@drawable/message_background"
+        android:paddingTop="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:text="Today"
+        android:fontFamily="@font/sf_pro_"
+        android:backgroundTint="#f0f0f0"/>
+</LinearLayout>
