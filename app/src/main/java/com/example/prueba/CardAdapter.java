@@ -43,6 +43,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         notifyDataSetChanged();
     }
 
+    public void updateList(List<CardServices> newServicesList) {
+        this.serviciosFiltrados.clear();
+        this.serviciosFiltrados.addAll(newServicesList);
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public CardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -81,10 +87,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             this.precio = itemView.findViewById(R.id.precio);
             this.tiempo = itemView.findViewById(R.id.tiempo);
             this.listener = listener1;
-            itemView.setOnClickListener(CardViewHolder.this::m96x8c38c225);
+            itemView.setOnClickListener(CardViewHolder.this::onClick);
         }
 
-        public void m96x8c38c225(View v) {
+        public void onClick(View v) {
             //noinspection deprecation
             int position = getAdapterPosition();
             if (position != -1 && this.listener != null) {
@@ -93,3 +99,4 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         }
     }
 }
+

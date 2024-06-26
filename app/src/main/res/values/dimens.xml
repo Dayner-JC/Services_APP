@@ -80,7 +80,6 @@
     <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
     <dimen name="altura_con_respuesta">102dp</dimen>
     <dimen name="altura_sin_respuesta">66dp</dimen>
-    <dimen name="app_bar_height">180dp</dimen>
     <dimen name="cardview_compat_inset_shadow">1dp</dimen>
     <dimen name="cardview_default_elevation">2dp</dimen>
     <dimen name="cardview_default_radius">2dp</dimen>
@@ -133,4 +132,6 @@
     <dimen name="tooltip_vertical_padding">6.5dp</dimen>
     <dimen name="tooltip_y_offset_non_touch">0dp</dimen>
     <dimen name="tooltip_y_offset_touch">16dp</dimen>
+    <dimen name="new_app_bar_height">0dp</dimen>
+    <dimen name="app_bar_height">300dp</dimen>
 </resources>

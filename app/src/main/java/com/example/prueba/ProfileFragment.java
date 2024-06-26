@@ -42,6 +42,10 @@ public class ProfileFragment extends Fragment implements CardWorkAdapter.OnItemC
     public void onItemClick(WorkItem workItem) {
         Intent intent = new Intent(getContext(), WorkDetail.class);
         intent.putExtra("itemPosition", workItemList.indexOf(workItem));
+        intent.putExtra("Titulo",workItem.getTitle());
+        intent.putExtra("Descripcion",workItem.getSubtitle());
+        intent.putExtra("Progreso",workItem.getProgress());
+        intent.putExtra("Tiempo",workItem.getDate());
         startActivityForResult(intent, REQUEST_DELETE_WORK);
     }
 

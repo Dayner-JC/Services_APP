@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,8 +19,9 @@ public class WorkDetail extends AppCompatActivity implements PopUpDeleteWork.OnD
     private boolean isExpanded = false;
     private View scrollView;
     private TextView textDescriptionContent;
-    private int itemPosition; // Posición del ítem a eliminar
+    private int itemPosition;
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +35,24 @@ public class WorkDetail extends AppCompatActivity implements PopUpDeleteWork.OnD
         this.textDescriptionContent = findViewById(R.id.text_description_content);
         this.scrollView = findViewById(R.id.ScrollView);
         ImageButton button_delete = findViewById(R.id.Work_button_delete);
+        ProgressBar progressBar = findViewById(R.id.seekBar);
+        TextView Title = findViewById(R.id.Title);
+        TextView categoria = findViewById(R.id.Categoria);
+        TextView progressText = findViewById(R.id.progressText);
         button_delete.setOnClickListener(WorkDetail.this::DeleteService);
         text_read_more.setOnClickListener(view -> WorkDetail.this.ReadMore(text_read_more));
         button_back.setOnClickListener(WorkDetail.this::Back);
 
         // Recibir la posición del ítem desde la intención
         itemPosition = getIntent().getIntExtra("itemPosition", -1);
+        int progress = getIntent().getIntExtra("Progreso",0);
+        String title = getIntent().getStringExtra("Titulo");
+        String Categoria = getIntent().getStringExtra("Descripcion");
+        categoria.setText(Categoria);
+        Title.setText(title);
+        progressBar.setProgress(progress);
+        String progress_text = String.valueOf(progress);
+        progressText.setText("%" + progress_text);
     }
 
     public void DeleteService(View v) {

@@ -105,6 +105,7 @@
         android:layout_below="@+id/search_content"
         android:layout_alignParentBottom="true">
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="300dp"
@@ -112,6 +113,7 @@
             android:layout_below="@+id/search_content"
             xmnls:elevation="0dp">
             <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:layout_marginTop="0dp"
