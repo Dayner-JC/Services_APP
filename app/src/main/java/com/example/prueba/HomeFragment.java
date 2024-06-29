@@ -42,17 +42,9 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
     private ViewPager2 viewPager2;
     private final Handler sliderHandler = new Handler();
     private final Runnable sliderRunnable = () -> viewPager2.setCurrentItem(viewPager2.getCurrentItem() + 1);
-    private CardAdapter brandingAdapter;
-    private CardAdapter servicesAdapter;
-    private CardAdapter interfacesAdapter;
-    private List<CardServices> brandingServicios;
-    private List<CardServices> servicesServicios;
-    private List<CardServices> interfacesServicios;
-    private View brandingRecyclerView;
-    private View servicesRecyclerView;
-    private View interfacesRecyclerView;
-    private View ToolBar;
-    private View buttonRecyclerView;
+    private CardAdapter brandingAdapter, servicesAdapter, interfacesAdapter;
+    private List<CardServices> brandingServicios, servicesServicios, interfacesServicios;
+    private View brandingRecyclerView, servicesRecyclerView, interfacesRecyclerView,ToolBar,buttonRecyclerView;
     private AppBarLayout appBar;
 
     @Override
@@ -117,13 +109,13 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
     private List<CardServices> getAllServices() {
         return new ArrayList<>(Arrays.asList(
                 new CardServices(R.drawable.branding1, "Visual Identity", "Branding", "$20.00", "/Month"),
-                new CardServices(R.drawable.branding2, "Manual", "Branding", "$20.00", "/Month"),
+                new CardServices(R.drawable.branding2, "Manual", "Branding", "$30.00", "/Month"),
                 new CardServices(R.drawable.branding3, "UI/UX Design", "Branding", "$20.00", "/Month"),
                 new CardServices(R.drawable.interface1, "Visual Identity", "Interface", "$20.00", "/Month"),
                 new CardServices(R.drawable.interface2, "Visual Identity", "Interface", "$20.00", "/Month"),
-                new CardServices(R.drawable.interface3, "App Design", "Interface", "$20.00", "/Month"),
+                new CardServices(R.drawable.interface3, "App Design", "Interface", "$25.00", "/Month"),
                 new CardServices(R.drawable.services1, "Visual Identity", "Services", "$20.00", "/Month"),
-                new CardServices(R.drawable.services2, "Visual Identity", "Services", "$20.00", "/Month"),
+                new CardServices(R.drawable.services2, "Visual Identity", "Services", "$50.00", "/Month"),
                 new CardServices(R.drawable.services3, "Visual Identity", "Services", "$20.00", "/Month")
         ));
     }
@@ -178,7 +170,7 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
             }
         });
 
-        ToolBar = view.findViewById(R.id.collapsing_toolbar); // Referencia al contenedor del ViewPager
+        ToolBar = view.findViewById(R.id.collapsing_toolbar);
     }
 
     // Configuración de la funcionalidad de búsqueda
@@ -210,7 +202,6 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
             @Override
             public void afterTextChanged(Editable s) {}
         });
-
 
         removeFocusTextView.setOnClickListener(v -> handleRemoveFocus(originalMargin));
     }
@@ -327,4 +318,3 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
         startActivity(intent);
     }
 }
-

@@ -36,8 +36,8 @@
             android:layout_height="24dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="7dp"
             android:fontFamily="@font/sf_pro_semibold"
             android:text="@string/visual_identity"
             android:textColor="@color/white"
@@ -50,8 +50,8 @@
             android:layout_height="28dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="7dp"
             android:fontFamily="@font/sf_pro_"
             android:text="@string/branding"
             android:textColor="@color/white"
@@ -63,7 +63,7 @@
             android:id="@+id/Precio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="7dp"
             android:text="@string/_20_00"
             android:layout_alignParentBottom="true"
             android:fontFamily="@font/sf_pro_semibold"
@@ -75,11 +75,11 @@
             android:id="@+id/Tiempo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="9dp"
             android:text="@string/month"
             android:layout_alignParentBottom="true"
             android:fontFamily="@font/sf_pro_"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="15dp"
             android:layout_alignParentEnd="true"/>
     </RelativeLayout>
     <ScrollView
@@ -106,7 +106,15 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="0dp"
                 android:fontFamily="@font/sf_pro_"
-                android:text="Hola este es un texto de prueba para ver como se                 ve el disenio de la descripcion de las cards dentro de un relativeLayoyt c                 ontenido por un scrollView vertical bla bla bla bla bla bla bla blabla                 bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla blabla                 bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla blabla                 bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla bla  b                 la bla blabla bla bla blabla bla bla blabla bla bla bla bla bla blabla bla"
+                android:text="F F F F F F F F F F F F F F F F F F F F F F F F F
+F F F F F F F F F F F F F F F F F F F F F F F F F
+F F F F F F F F F F F F F F F F F F F F F F F F F
+F F F F F F F F F F F F F F F F F F F F F F F F F
+F F F F F F F F F F F F F F F F F F F F F F F F F
+F F F F F F F F F F F F F F F F F F F F F F F F F
+F F F F F F F F F F F F F F F F F F F F F F F F F
+F F F F F F F F F F F F F F F F F F F F F F F F F
+F F F F F F F F F F F F F F F F F F F F F F F F F"
                 android:textColor="#787878"
                 android:textSize="14sp"
                 tools:ignore="HardcodedText,TextContrastCheck,VisualLintLongText" />

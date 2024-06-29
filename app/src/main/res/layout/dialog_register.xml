@@ -22,8 +22,8 @@
             android:layout_height="24dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="7dp"
             android:fontFamily="@font/sf_pro_semibold"
             android:text="@string/visual_identity"
             android:textColor="@color/white"
@@ -61,8 +61,8 @@
                 android:layout_height="28dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="7dp"
                 android:fontFamily="@font/sf_pro_"
                 android:text="@string/branding"
                 android:textColor="@color/white"
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="0dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="7dp"
                 android:layout_toStartOf="@+id/Tiempo"
                 android:fontFamily="@font/sf_pro_semibold"
                 android:text="@string/_20_00"
@@ -90,7 +90,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="9dp"
                 android:fontFamily="@font/sf_pro_"
                 android:text="@string/month"
                 android:textColor="@color/white" />
@@ -335,7 +335,7 @@
 
                 <EditText
                     android:id="@+id/Country_Number"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:layout_below="@+id/Text_Phone_Number"
                     android:layout_alignParentStart="true"
@@ -345,7 +345,7 @@
                     android:background="@drawable/edit_text_background"
                     android:fontFamily="@font/sf_pro_"
                     android:gravity="center_vertical"
-                    android:hint="   +1"
+                    android:hint="+1-564"
                     android:inputType="phone"
                     android:paddingStart="15dp"
                     android:paddingEnd="21dp"
@@ -353,6 +353,20 @@
                     android:textColorHint="#801d1f3e"
                     android:textCursorDrawable="@drawable/cursor"
                     tools:ignore="HardcodedText,TextContrastCheck" />
+
+                <TextView
+                    android:id="@+id/PhoneError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enter_a_valid_number"
+                    android:layout_below="@+id/Country_Number"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/sf_pro_"
+                    android:includeFontPadding="false"
+                    android:textColor="#ff0101"
+                    android:textSize="12sp"
+                    />
 
                 <EditText
                     android:id="@+id/Phone_Number"
@@ -388,7 +402,8 @@
                     android:fontFamily="@font/sf_pro_semibold"
                     android:layout_marginStart="20dp"
                     android:layout_alignParentStart="true"/>
-                <TextView
+
+                <Spinner
                     android:textSize="16sp"
                     android:textColor="#1a1a3c"
                     android:gravity="center_vertical"
@@ -399,12 +414,13 @@
                     android:text="@string/united_states"
                     android:layout_below="@+id/Text_Country"
                     android:fontFamily="@font/sf_pro_"
-                    android:paddingStart="26dp"
+                    android:paddingStart="15dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     tools:ignore="RtlSymmetry" />
+
                 <TextView
                     android:textSize="14sp"
                     android:textColor="#1a1a3c"
@@ -441,13 +457,28 @@
                     android:layout_height="50dp"
                     android:text="@string/_10_00"
                     android:layout_below="@+id/Text_Amount"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:fontFamily="@font/sf_pro_"
                     android:paddingStart="26dp"
                     android:layout_marginStart="20dp"
                     android:layout_alignParentStart="true"
                     android:importantForAutofill="no"
                     tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/Amount_Error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Amount"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/sf_pro_"
+                    android:includeFontPadding="false"
+                    android:text="@string/enter_a_valid_amount"
+                    android:textColor="#ff0101"
+                    android:textSize="12sp"
+                    tools:ignore="TextContrastCheck" />
+
                 <TextView
                     android:textSize="16sp"
                     android:textColor="#1a1a3c"
