@@ -116,6 +116,7 @@ public class WorkDetail extends AppCompatActivity implements PopUpDeleteWork.OnD
 
     @Override
     public void onDeleteWork(int position) {
+        // Aquí puedes eliminar el ítem o realizar la acción que desees al aceptar el popup
         Intent intent = new Intent();
         intent.putExtra("deletePosition", position);
         setResult(RESULT_OK, intent);

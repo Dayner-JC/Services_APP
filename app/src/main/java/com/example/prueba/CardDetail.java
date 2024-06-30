@@ -35,7 +35,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
+/**
+ * @noinspection deprecation
+ */
 public class CardDetail extends AppCompatActivity {
     private Dialog dialog;
     private boolean isExpanded = false;
@@ -65,6 +67,7 @@ public class CardDetail extends AppCompatActivity {
         setContentView(R.layout.card_detail);
         countryData = new CountryData();
 
+        // Inicialización de componentes
         RecyclerView cards = findViewById(R.id.Cards_Container);
         TextView textTitle = findViewById(R.id.Title);
         TextView textCategoria = findViewById(R.id.Categoria);
@@ -77,11 +80,13 @@ public class CardDetail extends AppCompatActivity {
         ImageButton backButton = findViewById(R.id.Button_back);
         Button requestButton = findViewById(R.id.Button_request);
 
+        // Configuración de la barra de estado y de navegación
         setSystemBarsColor(R.color.status_bar);
         if (Build.VERSION.SDK_INT >= 0) {
             setTransparentNavigationBarWithDarkIcons();
         }
 
+        // Obtener datos del Intent
         Intent intent = getIntent();
         int imageId = 0;
         String titulo = "";
@@ -114,17 +119,20 @@ public class CardDetail extends AppCompatActivity {
         cards.setAdapter(adapter);
         cards.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
+        // Configurar textos
         textTitle.setText(titulo);
         textCategoria.setText(categoria);
         textPrecio.setText(precioText);
         textTiempo.setText(tiempo);
         topImage.setImageResource(imageId);
 
+        // Configurar decorador de items en el RecyclerView
         Resources resources = getResources();
         int endOffset = resources.getDimensionPixelSize(R.dimen.end_offset);
         cards.addItemDecoration(new EndOffsetItemDecoration(endOffset));
         scrollView.setVerticalScrollBarEnabled(false);
 
+        // Configurar listeners
         backButton.setOnClickListener(this::onBackButtonClicked);
         textReadMore.setOnClickListener(this::onReadMoreClicked);
         requestButton.setOnClickListener(this::ShowDialog);

@@ -43,7 +43,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         notifyDataSetChanged();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     public void updateList(List<CardServices> newServicesList) {
         this.serviciosFiltrados.clear();
         this.serviciosFiltrados.addAll(newServicesList);
