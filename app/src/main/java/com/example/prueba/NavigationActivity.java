@@ -77,7 +77,6 @@ public class NavigationActivity extends AppCompatActivity implements ActionLayou
                 }
                 transaction.show(homeFragment);
 
-                // Ocultar otros fragmentos si están presentes
                 hideFragment(transaction, "DashboardFragment");
                 hideFragment(transaction, "NotificationsFragment");
                 hideFragment(transaction, "ProfileFragment");
@@ -106,7 +105,6 @@ public class NavigationActivity extends AppCompatActivity implements ActionLayou
                 }
                 transaction.show(notificationsFragment);
 
-                // Ocultar otros fragmentos si están presentes
                 hideFragment(transaction, "HomeFragment");
                 hideFragment(transaction, "DashboardFragment");
                 hideFragment(transaction, "ProfileFragment");
@@ -120,7 +118,6 @@ public class NavigationActivity extends AppCompatActivity implements ActionLayou
                 }
                 transaction.show(profileFragment);
 
-                // Ocultar otros fragmentos si están presentes
                 hideFragment(transaction, "HomeFragment");
                 hideFragment(transaction, "DashboardFragment");
                 hideFragment(transaction, "NotificationsFragment");
@@ -137,43 +134,36 @@ public class NavigationActivity extends AppCompatActivity implements ActionLayou
     @Override
     protected void onStart() {
         super.onStart();
-        // La actividad se hace visible
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // La actividad obtiene el foco y es interactiva
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        // La actividad pierde el foco, pero aún es visible
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        // La actividad ya no es visible para el usuario
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // La actividad está siendo destruida
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        // Guardar el estado de la actividad
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        // Restaurar el estado de la actividad
     }
 
     private void hideFragment(FragmentTransaction transaction, String tag) {

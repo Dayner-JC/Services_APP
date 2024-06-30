@@ -19,7 +19,7 @@ import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-/** @noinspection deprecation, deprecation */
+/** @noinspection deprecation*/
 public class CardWorkAdapter extends RecyclerView.Adapter<CardWorkAdapter.WorkViewHolder> {
     private final OnItemClickListener listener;
     private final OnDeleteClickListener deleteListener;

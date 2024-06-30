@@ -48,11 +48,11 @@ public class PasswordRecet extends AppCompatActivity {
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.POST, url, resetData, response -> {
-                    // Manejar la respuesta exitosa
+
                     Toast.makeText(this, "Password reset email sent", Toast.LENGTH_SHORT).show();
                     finish();
                 }, error -> {
-                    // Manejar el error
+
                     Toast.makeText(this, "Failed to send reset email. Please try again.", Toast.LENGTH_SHORT).show();
                 });
 

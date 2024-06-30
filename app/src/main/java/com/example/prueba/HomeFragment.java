@@ -51,7 +51,6 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // Inicialización de RecyclerViews
         brandingRecyclerView = view.findViewById(R.id.branding_recycler_view);
         servicesRecyclerView = view.findViewById(R.id.services_recycler_view);
         interfacesRecyclerView = view.findViewById(R.id.interfaces_recycler_view);
@@ -60,22 +59,18 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
         Services_Text = view.findViewById(R.id.Services_title);
         Interface_Text = view.findViewById(R.id.Interfaces_title);
 
-        // Inicialización de AppBarLayout
         appBar = view.findViewById(R.id.app_bar);
 
-        // Configuración de RecyclerViews
         setupRecyclerView((RecyclerView) brandingRecyclerView);
         setupRecyclerView((RecyclerView) servicesRecyclerView);
         setupRecyclerView((RecyclerView) interfacesRecyclerView);
         setupRecyclerView((RecyclerView) buttonRecyclerView);
 
-        // Creación y filtrado de datos
         List<CardServices> todosLosServicios = getAllServices();
         brandingServicios = filtrarPorCategoria(todosLosServicios, "Branding");
         servicesServicios = filtrarPorCategoria(todosLosServicios, "Services");
         interfacesServicios = filtrarPorCategoria(todosLosServicios, "Interface");
 
-        // Configuración de adaptadores
         brandingAdapter = new CardAdapter(brandingServicios, this);
         servicesAdapter = new CardAdapter(servicesServicios, this);
         interfacesAdapter = new CardAdapter(interfacesServicios, this);
@@ -84,28 +79,23 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
         ((RecyclerView) servicesRecyclerView).setAdapter(servicesAdapter);
         ((RecyclerView) interfacesRecyclerView).setAdapter(interfacesAdapter);
 
-        // Configuración del adaptador de botones
         List<String> buttonLabels = Arrays.asList("All", "Branding", "Interface", "Services");
         ButtonAdapter buttonAdapter = new ButtonAdapter(buttonLabels, brandingAdapter, servicesAdapter, interfacesAdapter, (RecyclerView) brandingRecyclerView, (RecyclerView) servicesRecyclerView, (RecyclerView) interfacesRecyclerView, view);
         ((RecyclerView) buttonRecyclerView).setAdapter(buttonAdapter);
 
-        // Configuración del ViewPager2
         setupViewPager(view);
 
-        // Inicialización de los elementos de búsqueda
         setupSearch(view);
 
         return view;
     }
 
-    // Configuración de los RecyclerViews
     private void setupRecyclerView(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         int endOffset = getResources().getDimensionPixelSize(R.dimen.end_offset);
         recyclerView.addItemDecoration(new EndOffsetItemDecoration(endOffset));
     }
 
-    // Creación de la lista de todos los servicios
     private List<CardServices> getAllServices() {
         return new ArrayList<>(Arrays.asList(
                 new CardServices(R.drawable.branding1, "Visual Identity", "Branding", "$20.00", "/Month"),
@@ -120,7 +110,6 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
         ));
     }
 
-    // Filtrado de servicios por categoría
     private List<CardServices> filtrarPorCategoria(List<CardServices> servicios, String categoria) {
         List<CardServices> serviciosFiltrados = new ArrayList<>();
         for (CardServices servicio : servicios) {
@@ -173,7 +162,6 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
         ToolBar = view.findViewById(R.id.collapsing_toolbar);
     }
 
-    // Configuración de la funcionalidad de búsqueda
     private void setupSearch(View view) {
         searchEditText = view.findViewById(R.id.search);
         imageSearch = view.findViewById(R.id.imageSearch);
@@ -215,10 +203,8 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
         servicesAdapter.updateList(filteredServicesServices);
         interfacesAdapter.updateList(filteredInterfacesServices);
 
-        // Variable para rastrear el estado de búsqueda
         boolean isSearching = !query.isEmpty();
 
-        // Ocultar todos los elementos si hay una búsqueda activa, mostrar solo las tarjetas filtradas
         int visibility = isSearching ? View.GONE : View.VISIBLE;
         ToolBar.setVisibility(visibility);
         buttonRecyclerView.setVisibility(visibility);

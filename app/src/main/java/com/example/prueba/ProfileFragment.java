@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-/** @noinspection deprecation, deprecation */
+/** @noinspection deprecation*/
 public class ProfileFragment extends Fragment implements CardWorkAdapter.OnItemClickListener, CardWorkAdapter.OnDeleteClickListener, PopUpDeleteWork.OnDeleteWorkListener {
 
     private CardWorkAdapter workAdapter;

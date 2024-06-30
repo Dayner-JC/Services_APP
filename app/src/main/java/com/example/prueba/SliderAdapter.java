@@ -64,9 +64,9 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         @SuppressLint("NotifyDataSetChanged")
         @Override
         public void run() {
-            List<SliderItem> newList = new ArrayList<>(sliderItems);  // Clonar la lista original
-            sliderItems.addAll(newList);  // Agregar todos los elementos clonados de nuevo a sliderItems
-            notifyDataSetChanged();  // Notificar al adapter que los datos han cambiado
+            List<SliderItem> newList = new ArrayList<>(sliderItems);
+            sliderItems.addAll(newList);
+            notifyDataSetChanged();
         }
     };
 }
