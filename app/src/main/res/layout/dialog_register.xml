@@ -345,7 +345,7 @@
                     android:background="@drawable/edit_text_background"
                     android:fontFamily="@font/sf_pro_"
                     android:gravity="center_vertical"
-                    android:hint="+1-564"
+                    android:hint="+1-870"
                     android:inputType="phone"
                     android:paddingStart="15dp"
                     android:paddingEnd="21dp"

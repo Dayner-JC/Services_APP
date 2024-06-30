@@ -1,6 +1,7 @@
 package com.example.prueba;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,7 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.Map;
 
 import java.util.ArrayList;
@@ -45,11 +47,6 @@ public class CardDetail extends AppCompatActivity {
     private TextView textDescriptionContent;
     private TextView textReadMore;
     private String precioFinal, precio;
-    private Map<String, String> phoneCodeToCountryMap;
-    EditText country_number;
-    Spinner country;
-    private CountryAdapter countryAdapter;
-    private List<String> countryNames;
     private TextView countryError;
     private EditText password;
     private EditText name;
@@ -59,6 +56,14 @@ public class CardDetail extends AppCompatActivity {
     private EditText phoneNumber;
     private double precioDouble, amountEntered;
     private CountryData countryData;
+    private Map<String, List<String>> countryToPhoneCodesMap;
+    private EditText country_number;
+    private Spinner country;
+    private CountryAdapter countryAdapter;
+    private List<String> countryNames;
+    private boolean ignoreTextWatcher = false;
+    private boolean manualInput = false;
+    boolean isUpdatingSpinner = false;
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -66,8 +71,8 @@ public class CardDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_detail);
         countryData = new CountryData();
+        countryToPhoneCodesMap = countryData.getCountryToPhoneCodesMap();
 
-        // Inicialización de componentes
         RecyclerView cards = findViewById(R.id.Cards_Container);
         TextView textTitle = findViewById(R.id.Title);
         TextView textCategoria = findViewById(R.id.Categoria);
@@ -80,13 +85,11 @@ public class CardDetail extends AppCompatActivity {
         ImageButton backButton = findViewById(R.id.Button_back);
         Button requestButton = findViewById(R.id.Button_request);
 
-        // Configuración de la barra de estado y de navegación
         setSystemBarsColor(R.color.status_bar);
         if (Build.VERSION.SDK_INT >= 0) {
             setTransparentNavigationBarWithDarkIcons();
         }
 
-        // Obtener datos del Intent
         Intent intent = getIntent();
         int imageId = 0;
         String titulo = "";
@@ -110,7 +113,6 @@ public class CardDetail extends AppCompatActivity {
 
         precioFinal = String.format("%.2f", precioMitadDouble);
 
-        // Configurar RecyclerView
         List<CardReferData> datos = new ArrayList<>();
         datos.add(new CardReferData("Logo", imageId, true));
         datos.add(new CardReferData("Manual", imageId, false));
@@ -119,20 +121,17 @@ public class CardDetail extends AppCompatActivity {
         cards.setAdapter(adapter);
         cards.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
-        // Configurar textos
         textTitle.setText(titulo);
         textCategoria.setText(categoria);
         textPrecio.setText(precioText);
         textTiempo.setText(tiempo);
         topImage.setImageResource(imageId);
 
-        // Configurar decorador de items en el RecyclerView
         Resources resources = getResources();
         int endOffset = resources.getDimensionPixelSize(R.dimen.end_offset);
         cards.addItemDecoration(new EndOffsetItemDecoration(endOffset));
         scrollView.setVerticalScrollBarEnabled(false);
 
-        // Configurar listeners
         backButton.setOnClickListener(this::onBackButtonClicked);
         textReadMore.setOnClickListener(this::onReadMoreClicked);
         requestButton.setOnClickListener(this::ShowDialog);
@@ -181,9 +180,7 @@ public class CardDetail extends AppCompatActivity {
         name = dialog.findViewById(R.id.Name);
         lastName = dialog.findViewById(R.id.Last_Name);
         email = dialog.findViewById(R.id.Email);
-        country_number = dialog.findViewById(R.id.Country_Number);
         amount = dialog.findViewById(R.id.Amount);
-        country = dialog.findViewById(R.id.Country);
         countryError = dialog.findViewById(R.id.PhoneError);
         TextView nameError = dialog.findViewById(R.id.name_error_text);
         TextView lastNameError = dialog.findViewById(R.id.last_name_error_text);
@@ -191,6 +188,9 @@ public class CardDetail extends AppCompatActivity {
         TextView passwordError = dialog.findViewById(R.id.password_error_text);
         TextView amountError = dialog.findViewById(R.id.Amount_Error);
         phoneNumber = dialog.findViewById(R.id.Phone_Number);
+        country = dialog.findViewById(R.id.Country);
+        country_number = dialog.findViewById(R.id.Country_Number);
+        Button request_service = dialog.findViewById(R.id.button_request_2);
 
         nameError.setVisibility(View.GONE);
         lastNameError.setVisibility(View.GONE);
@@ -202,16 +202,15 @@ public class CardDetail extends AppCompatActivity {
         country_number.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
         country_number.setSelection(country_number.getText().length());
 
-        Button request_service = dialog.findViewById(R.id.button_request_2);
         countryError.setVisibility(View.GONE);
-        countryNames = new ArrayList<>();
 
         InputFilter[] filters = new InputFilter[1];
         filters[0] = new InputFilter.LengthFilter(6);
         amount.setFilters(filters);
 
-        countryData = new CountryData(); // Initialize CountryData
-        phoneCodeToCountryMap = countryData.getPhoneCodeToCountryMap();
+        countryNames = new ArrayList<>();
+        countryData = new CountryData();
+        countryToPhoneCodesMap = countryData.getCountryToPhoneCodesMap();
         configureSpinner();
 
         country_number.addTextChangedListener(new TextWatcher() {
@@ -224,6 +223,12 @@ public class CardDetail extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (ignoreTextWatcher) {
+                    ignoreTextWatcher = false;
+                    return;
+                }
+                isUpdatingSpinner = true;
+
                 country_number.removeTextChangedListener(this);
 
                 String countryCode = s.toString();
@@ -235,35 +240,32 @@ public class CardDetail extends AppCompatActivity {
                     country_number.setSelection(country_number.getText().length());
                 }
 
-                String countryName = phoneCodeToCountryMap.get(countryCode);
-                if (countryName != null) {
-                    int spinnerPosition = countryAdapter.getPosition(countryName);
-                    country.setSelection(spinnerPosition);
-                } else {
-                    int notFoundPosition = countryAdapter.getPosition("Country not found");
-                    country.setSelection(notFoundPosition);
-                }
-
-                country_number.addTextChangedListener(this);
-                countryError.setVisibility(View.GONE);
+                String countryName = findCountryNameByCode(countryCode);
 
                 if (countryName != null) {
                     int spinnerPosition = countryAdapter.getPosition(countryName);
-                    country.setSelection(spinnerPosition);
-                    country_number.setBackgroundResource(R.drawable.edit_text_background);
+                    if (country.getSelectedItemPosition() != spinnerPosition) {
+                        country.setSelection(spinnerPosition);
+                    }
+                    country_number.addTextChangedListener(this);
                     countryError.setVisibility(View.GONE);
+                    country_number.setBackgroundResource(R.drawable.edit_text_background);
                 } else {
                     int notFoundPosition = countryAdapter.getPosition("Country not found");
                     country.setSelection(notFoundPosition);
+                    country_number.addTextChangedListener(this);
+                    countryError.setVisibility(View.VISIBLE);
                     country_number.setBackgroundResource(R.drawable.error_bg);
                     countryError.setText("Enter a valid country number");
-                    countryError.setVisibility(View.VISIBLE);
                 }
+
                 if (country_number.getText().toString().isEmpty()) {
                     country_number.setBackgroundResource(R.drawable.error_bg);
                     countryError.setText("Enter a country number");
                     countryError.setVisibility(View.VISIBLE);
                 }
+
+                manualInput = true;
             }
 
             @Override
@@ -299,29 +301,51 @@ public class CardDetail extends AppCompatActivity {
                 country_number.setText(modifiedCountryCode.toString());
                 country_number.setSelection(Math.max(0, Math.min(cursorPosition, country_number.getText().length())));
                 country_number.addTextChangedListener(this);
+                isUpdatingSpinner = false;
+            }
+
+            private String findCountryNameByCode(String countryCode) {
+                for (Map.Entry<String, List<String>> entry : countryToPhoneCodesMap.entrySet()) {
+                    if (entry.getValue().contains(countryCode)) {
+                        return entry.getKey();
+                    }
+                }
+                return null;
             }
         });
 
         country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            private boolean initialSelection = true;
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (initialSelection) {
+                    initialSelection = false;
+                    return;
+                }
+
                 String selectedCountry = parent.getItemAtPosition(position).toString();
                 if (!selectedCountry.equals("Country not found")) {
-                    for (Map.Entry<String, String> entry : phoneCodeToCountryMap.entrySet()) {
-                        if (entry.getValue().equals(selectedCountry)) {
-                            int currentCursorPosition = country_number.getSelectionStart();
-                            country_number.setText(entry.getKey());
-                            country_number.setSelection(currentCursorPosition);
-                            break;
-                        }
+                    List<String> possibleCodes = countryToPhoneCodesMap.get(selectedCountry);
+                    if (possibleCodes != null && possibleCodes.size() > 1 && !manualInput) {
+                        showCountryCodeDialog(possibleCodes, selectedCountry);
+                    } else if (possibleCodes != null && possibleCodes.size() == 1) {
+                        int cursorPosition = country_number.getSelectionStart();
+                        ignoreTextWatcher = true;
+                        country_number.setText(possibleCodes.get(0));
+                        country_number.setSelection(Math.min(cursorPosition, country_number.getText().length()));
                     }
                 }
+
+                manualInput = false;
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+
 
         amount.addTextChangedListener(new TextWatcher() {
             private boolean isErrorDisplayed = false;
@@ -397,6 +421,7 @@ public class CardDetail extends AppCompatActivity {
         List<String> countryList = countryData.getCountryNames();
         countryNames.clear();
         countryNames.addAll(countryList);
+        Collections.sort(countryNames);
 
         if (!countryNames.contains("Country not found")) {
             countryNames.add("Country not found");
@@ -406,10 +431,23 @@ public class CardDetail extends AppCompatActivity {
         countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         country.setAdapter(countryAdapter);
 
-        int position = countryAdapter.getPosition("Cuba");
+        int position = countryAdapter.getPosition("United States");
         if (position >= 0) {
             country.setSelection(position);
         }
+    }
+
+    private void showCountryCodeDialog(List<String> possibleCodes, String countryName) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Selecciona su Código de País para " + countryName);
+
+        String[] codesArray = possibleCodes.toArray(new String[0]);
+        builder.setItems(codesArray, (dialog, which) -> {
+            String selectedCode = codesArray[which];
+            country_number.setText(selectedCode);
+        });
+
+        builder.show();
     }
 
     @SuppressLint("SetTextI18n")

@@ -20,7 +20,6 @@ public class CountryAdapter extends ArrayAdapter<String> {
         super(context, R.layout.spinner_item, countries);
         this.context = context;
         this.countries = countries;
-
     }
 
     @NonNull
