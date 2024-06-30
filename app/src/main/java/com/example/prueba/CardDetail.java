@@ -3,7 +3,6 @@ package com.example.prueba;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.accessibility.AccessibilityEventCompat;
@@ -30,18 +29,8 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -69,12 +58,14 @@ public class CardDetail extends AppCompatActivity {
     private EditText amount;
     private EditText phoneNumber;
     private double precioDouble, amountEntered;
+    private CountryData countryData;
 
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_detail);
+        countryData = new CountryData();
 
         // Inicialización de componentes
         RecyclerView cards = findViewById(R.id.Cards_Container);
@@ -208,7 +199,6 @@ public class CardDetail extends AppCompatActivity {
         amountError.setVisibility(View.GONE);
 
         phoneNumber.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
-
         country_number.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
         country_number.setSelection(country_number.getText().length());
 
@@ -220,8 +210,9 @@ public class CardDetail extends AppCompatActivity {
         filters[0] = new InputFilter.LengthFilter(6);
         amount.setFilters(filters);
 
-        phoneCodeToCountryMap = new HashMap<>();
-        fetchCountryData();
+        countryData = new CountryData(); // Initialize CountryData
+        phoneCodeToCountryMap = countryData.getPhoneCodeToCountryMap();
+        configureSpinner();
 
         country_number.addTextChangedListener(new TextWatcher() {
             private int cursorPosition = 0;
@@ -268,7 +259,7 @@ public class CardDetail extends AppCompatActivity {
                     countryError.setText("Enter a valid country number");
                     countryError.setVisibility(View.VISIBLE);
                 }
-                if(country_number.getText().toString().isEmpty()){
+                if (country_number.getText().toString().isEmpty()) {
                     country_number.setBackgroundResource(R.drawable.error_bg);
                     countryError.setText("Enter a country number");
                     countryError.setVisibility(View.VISIBLE);
@@ -284,7 +275,6 @@ public class CardDetail extends AppCompatActivity {
                 int addedChars = 0;
 
                 if (!countryCode.isEmpty()) {
-
                     for (int i = 0; i < countryCode.length(); i++) {
                         char c = countryCode.charAt(i);
                         if (i == 0 && c != '+') {
@@ -334,15 +324,14 @@ public class CardDetail extends AppCompatActivity {
         });
 
         amount.addTextChangedListener(new TextWatcher() {
-            private boolean isErrorDisplayed = false; // Flag to track error state
+            private boolean isErrorDisplayed = false;
 
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {// Not used in this case
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // Not used in this case
             }
 
             @Override
@@ -382,7 +371,8 @@ public class CardDetail extends AppCompatActivity {
                         amount.setBackgroundResource(R.drawable.edit_text_background);
                         amountError.setVisibility(View.GONE);
                         isErrorDisplayed = false;
-                    }} else {
+                    }
+                } else {
                     if (!isErrorDisplayed) {
                         amount.setBackgroundResource(R.drawable.error_bg);
                         amountError.setText(errorMessage);
@@ -403,83 +393,20 @@ public class CardDetail extends AppCompatActivity {
         request_service.setOnClickListener(view -> validateAndSubmit(name, lastName, email, password));
     }
 
-    // Método para obtener datos de la API
-    private void fetchCountryData() {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url("https://restcountries.com/v3.1/all")
-                .build();
-
-        client.newCall(request).enqueue(new okhttp3.Callback() {
-            @Override
-            public void onFailure(@NonNull okhttp3.Call call, @NonNull IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(@NonNull okhttp3.Call call, @NonNull Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    assert response.body() != null;
-                    String jsonData = response.body().string();
-                    try {
-                        JSONArray jsonArray = new JSONArray(jsonData);
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject countryObject = jsonArray.getJSONObject(i);
-
-                            if (countryObject.has("name") && countryObject.getJSONObject("name").has("common") &&
-                                    countryObject.has("idd") && countryObject.getJSONObject("idd").has("root") &&
-                                    countryObject.getJSONObject("idd").has("suffixes")) {
-
-                                String countryName = countryObject.getJSONObject("name").getString("common");
-                                JSONObject iddObject = countryObject.getJSONObject("idd");
-                                String root = iddObject.getString("root");
-                                JSONArray suffixesArray = iddObject.getJSONArray("suffixes");
-
-                                for (int j = 0; j < suffixesArray.length(); j++) {
-                                    String suffix = suffixesArray.getString(j);
-                                    String callingCode;
-                                    if (suffix.length() > 2) {
-                                        callingCode = root + "-" + suffix;
-                                    } else {
-                                        callingCode = root + suffix;
-                                    }
-                                    phoneCodeToCountryMap.put(callingCode, countryName);
-                                }
-                            }
-                        }
-                        runOnUiThread(() -> {
-                            country_number.setEnabled(true);
-                            configureSpinner();
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-    }
-
     private void configureSpinner() {
-        // Obtener la lista de nombres de países desde phoneCodeToCountryMap
-        List<String> countryList = new ArrayList<>(phoneCodeToCountryMap.values());
-        Collections.sort(countryList);
-
-        // Limpiar y actualizar la lista de nombres de países
+        List<String> countryList = countryData.getCountryNames();
         countryNames.clear();
         countryNames.addAll(countryList);
 
-        // Agregar "Country not found" si no está presente
         if (!countryNames.contains("Country not found")) {
             countryNames.add("Country not found");
         }
 
-        // Configurar el adaptador del Spinner con la lista actualizada
         countryAdapter = new CountryAdapter(this, countryNames);
         countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         country.setAdapter(countryAdapter);
 
-        // Seleccionar posición inicial si es necesario
-        int position = countryAdapter.getPosition("United States");
+        int position = countryAdapter.getPosition("Cuba");
         if (position >= 0) {
             country.setSelection(position);
         }
