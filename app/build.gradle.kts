@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.prueba"
+    namespace = "dev.godjango.apk"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.prueba"
+        applicationId = "dev.godjango.apk"
         minSdk = 27
         targetSdk = 34
         versionCode = 1
@@ -32,7 +32,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.play.services.location)
+    implementation(libs.androidx.activity.ktx)
     implementation(libs.okhttp)
     implementation(libs.androidx.viewpager2)
     implementation(libs.roundedimageview.v230)
