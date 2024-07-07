@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-/** */
 public class Navigation extends AppCompatActivity implements ActionLayoutListener {
     private ImageButton buttonAll, buttonBack, buttonDelete;
     private ImageView imageView;
@@ -26,6 +25,7 @@ public class Navigation extends AppCompatActivity implements ActionLayoutListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation);
+
         SystemBarsUtil.styleSystemBars(this, R.color.status_bar);
         initializeViews();
         setupBottomNavigation();
@@ -64,19 +64,21 @@ public class Navigation extends AppCompatActivity implements ActionLayoutListene
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         String tag = getFragmentTagByItemId(itemId);
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
+
         if (fragment == null) {
             fragment = createFragmentByItemId(itemId);
             transaction.add(R.id.fragment_container, fragment, tag);
+        } else {
+            transaction.show(fragment);
         }
-        transaction.show(fragment);
+
         hideOtherFragments(transaction, tag);
         transaction.commit();
     }
 
     @SuppressLint("SetTextI18n")
     private Fragment createFragmentByItemId(int itemId) {
-        Fragment fragment;
-
+        Fragment fragment = null;
         if (itemId == R.id.navigation_home) {
             topText.setText("Home");
             fragment = new HomeFragment();
@@ -94,7 +96,6 @@ public class Navigation extends AppCompatActivity implements ActionLayoutListene
         } else {
             throw new IllegalArgumentException("Unknown navigation item ID");
         }
-
         return fragment;
     }
 

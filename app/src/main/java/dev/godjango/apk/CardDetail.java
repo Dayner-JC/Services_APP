@@ -1,14 +1,11 @@
+// CardDetail.java
+
 package dev.godjango.apk;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,10 +14,13 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.List;
 
-/** */
 public class CardDetail extends AppCompatActivity {
 
     private boolean isExpanded = false;
@@ -35,24 +35,54 @@ public class CardDetail extends AppCompatActivity {
         SystemBarsUtil.styleSystemBars(this, R.color.status_bar);
 
         Intent intent = getIntent();
-        int imageId = 0;
-        String title = "";
-        String category = "";
-        String price = "";
-        String time = "";
+        int imageId;
+        String title;
+        String category;
+        String price;
+        String time;
+
         if (intent != null) {
             title = intent.getStringExtra("Title");
             category = intent.getStringExtra("Category");
             price = intent.getStringExtra("Price");
             time = intent.getStringExtra("Time");
             imageId = intent.getIntExtra("Image", 0);
+
+        } else {
+            imageId = 0;
+            time = "";
+            price = "";
+            category = "";
+            title = "";
+
         }
 
-        assert price != null;
-        String priceWithOutSymbol = price.substring(1);
-        String priceText = "$ " + priceWithOutSymbol;
+        List<CardServices> originalCardsList = intent.getParcelableArrayListExtra("CardsOfSameCategory");
 
-        RecyclerView cards = findViewById(R.id.Cards_Container);
+        if (originalCardsList == null) {
+            originalCardsList = new ArrayList<>();
+        }
+
+        List<CardServices> filteredCards = new ArrayList<>(originalCardsList);
+        CardServices clickedCard = intent.getParcelableExtra("ClickedCard");
+        if (clickedCard != null) {
+            filteredCards.removeIf(c -> c.getTitle().equals(clickedCard.getTitle()));
+        }
+
+        CardReferencesAdapter adapter = new CardReferencesAdapter(this, filteredCards, originalCardsList);
+        RecyclerView cardsRecyclerView = findViewById(R.id.Cards_Container);
+        cardsRecyclerView.setAdapter(adapter);
+
+        String priceWithOutSymbol;
+        String priceText;
+        if(price != null) {
+            priceWithOutSymbol = price.substring(1);
+            priceText = "$ " + priceWithOutSymbol;
+        } else {
+            priceText = "";
+        }
+
+
         TextView textTitle = findViewById(R.id.Title);
         TextView textCategory = findViewById(R.id.Categoria);
         TextView textPrice = findViewById(R.id.Precio);
@@ -64,16 +94,10 @@ public class CardDetail extends AppCompatActivity {
         ImageButton backButton = findViewById(R.id.Button_back);
         Button requestButton = findViewById(R.id.Button_request);
 
-        List<CardReferencesData> date = new ArrayList<>();
-        date.add(new CardReferencesData("Logo", imageId, true));
-        date.add(new CardReferencesData("Manual", imageId, false));
-        date.add(new CardReferencesData("Manual", imageId, false));
-        CardReferencesAdapter adapter = new CardReferencesAdapter(this, date, category, price, time, imageId);
-        cards.setAdapter(adapter);
-        cards.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        cardsRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         Resources resources = getResources();
         int endOffset = resources.getDimensionPixelSize(R.dimen.end_offset);
-        cards.addItemDecoration(new EndOffsetItemDecoration(endOffset));
+        cardsRecyclerView.addItemDecoration(new EndOffsetItemDecoration(endOffset));
 
         textTitle.setText(title);
         textCategory.setText(category);
@@ -85,9 +109,17 @@ public class CardDetail extends AppCompatActivity {
         textReadMore.setOnClickListener(this::onReadMoreClicked);
 
         requestButton.setOnClickListener(view ->{
-            RegisterHelper registerHelper = new RegisterHelper(this, priceText);
+            Bundle cardData = new Bundle();
+            cardData.putString("Title", title);
+            cardData.putString("Category", category);
+            cardData.putString("Price", price);
+            cardData.putString("Time", time);
+            cardData.putInt("Image", imageId);
+
+            RegisterHelper registerHelper = new RegisterHelper(cardData,this, priceText);
             RegisterHelper.showRegister();
-                });
+
+        });
     }
 
     private void onBackButtonClicked(View view) {
@@ -111,5 +143,4 @@ public class CardDetail extends AppCompatActivity {
         }
         textDescriptionContent.requestLayout();
     }
-
 }

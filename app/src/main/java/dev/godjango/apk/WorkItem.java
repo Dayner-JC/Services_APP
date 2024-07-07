@@ -1,22 +1,26 @@
 package dev.godjango.apk;
 
+import android.os.Bundle;
+
 public class WorkItem {
     private final String ProgressText;
     private final int button;
     private String date;
     private int iconResId;
     private int progress;
-    private String subtitle;
+    private String category;
     private String title;
+    private final Bundle cardData;
 
-    public WorkItem(int button, String progressText, String date, String title, String subtitle, int progress, int iconResId) {
+    public WorkItem(int button, String progressText, String date, String title, String category, int progress, int iconResId,Bundle cardData) {
         this.button = button;
         this.ProgressText = progressText;
         this.date = date;
         this.title = title;
-        this.subtitle = subtitle;
+        this.category = category;
         this.progress = progress;
         this.iconResId = iconResId;
+        this.cardData = cardData;
     }
 
     public String getDate() {
@@ -35,12 +39,12 @@ public class WorkItem {
         this.title = title;
     }
 
-    public String getSubtitle() {
-        return this.subtitle;
+    public String getCategory() {
+        return this.category;
     }
 
-    public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
+    public void setCategory(String subtitle) {
+        this.category = subtitle;
     }
 
     public int getProgress() {
@@ -66,4 +70,9 @@ public class WorkItem {
     public int getButton() {
         return this.button;
     }
+
+    public Bundle getCardData() {
+        return cardData;
+    }
+
 }

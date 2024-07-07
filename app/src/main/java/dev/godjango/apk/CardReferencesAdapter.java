@@ -2,31 +2,27 @@ package dev.godjango.apk;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.view.ViewGroup;import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CardReferencesAdapter extends RecyclerView.Adapter<CardReferencesAdapter.CardViewHolder> {
-    private final List<CardReferencesData> dates;
+    private final List<CardServices> cards;
     private final Activity activity;
-    private final String category;
-    private final String price;
-    private final String time;
-    private final int imageId;
+    private final List<CardServices> originalCards;
 
-    public CardReferencesAdapter(Activity activity,List<CardReferencesData> dates, String category, String price, String time, int imageId) {
-        this.dates = dates;
-        this.category = category;
-        this.price = price;
-        this.time = time;
+    public CardReferencesAdapter(Activity activity, List<CardServices> cards, List<CardServices> originalCards) {
+        this.cards = cards;
         this.activity = activity;
-        this.imageId = imageId;
+        this.originalCards = new ArrayList<>(originalCards);
     }
 
     public static class CardViewHolder extends RecyclerView.ViewHolder {
@@ -36,7 +32,7 @@ public class CardReferencesAdapter extends RecyclerView.Adapter<CardReferencesAd
 
         public CardViewHolder(View itemView) {
             super(itemView);
-            this.title =  itemView.findViewById(R.id.title);
+            this.title = itemView.findViewById(R.id.title);
             this.image = itemView.findViewById(R.id.image);
             this.label = itemView.findViewById(R.id.etiqueta);
         }
@@ -51,30 +47,35 @@ public class CardReferencesAdapter extends RecyclerView.Adapter<CardReferencesAd
 
     @Override
     public void onBindViewHolder(CardViewHolder holder, int position) {
-        CardReferencesData cardReferencesData = this.dates.get(position);
-        holder.title.setText(cardReferencesData.getName());
-        holder.image.setImageResource(cardReferencesData.getImage());
-        if (cardReferencesData.getEsPopular()) {
-            holder.label.setVisibility(View.VISIBLE);
-        } else {
-            holder.label.setVisibility(View.GONE);
-        }
+        CardServices card = this.cards.get(position);
+        holder.title.setText(card.getTitle());
+        holder.image.setImageResource(card.getImage());
+        holder.label.setVisibility(card.getEsPopular() ? View.VISIBLE : View.GONE);
 
         holder.itemView.setOnClickListener(v -> {
-            CardReferencesData refer = dates.get(position);
+            CardServices clickedCard = cards.get(position);
+
+            List<CardServices> newFilteredCards = new ArrayList<>(originalCards);
+            List<CardServices> cardsToSend = new ArrayList<>(newFilteredCards);
+            newFilteredCards.removeIf(c -> c.getTitle().equals(clickedCard.getTitle()));
+
             Intent intent = new Intent(activity, CardDetail.class);
-            intent.putExtra("Title", refer.getName());
-            intent.putExtra("Category", category);
-            intent.putExtra("Image", imageId);
-            intent.putExtra("Price", price);
-            intent.putExtra("Time", time);
+            intent.putExtra("Title", clickedCard.getTitle());
+            intent.putExtra("Category", clickedCard.getCategory());
+            intent.putExtra("Image", clickedCard.getImage());
+            intent.putExtra("Price", clickedCard.getPrice());
+            intent.putExtra("Time", clickedCard.getTime());
+            intent.putParcelableArrayListExtra("CardsOfSameCategory", new ArrayList<>(cardsToSend));
+            intent.putExtra("ClickedCard", clickedCard);
+
             activity.startActivity(intent);
             activity.finish();
+
         });
     }
 
     @Override
     public int getItemCount() {
-        return this.dates.size();
+        return this.cards.size();
     }
-    }
+}

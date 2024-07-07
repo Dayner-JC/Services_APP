@@ -15,18 +15,22 @@ import java.util.Map;
 
 /** @noinspection ALL*/
 public class ButtonAdapter extends RecyclerView.Adapter<ButtonAdapter.ButtonViewHolder> {
-    private final CardAdapter brandingAdapter;
-    private final RecyclerView brandingRecyclerView;
     private final List<String> buttonLabels;
     private final View fragmentView;
     private final CardAdapter interfacesAdapter;
-    private final RecyclerView interfacesRecyclerView;
-    private int selectedPosition = 0;
     private final CardAdapter servicesAdapter;
+    private final CardAdapter brandingAdapter;
+    private final CardAdapter editorialAdapter;
+    private final RecyclerView editorialRecyclerView;
+    private final RecyclerView interfacesRecyclerView;
     private final RecyclerView servicesRecyclerView;
+    private final RecyclerView brandingRecyclerView;
+    private int selectedPosition = 0;
     private final Map<String, Integer[]> visibilityMap = new HashMap<>();
 
-    public ButtonAdapter(List<String> buttonLabels, CardAdapter brandingAdapter, CardAdapter servicesAdapter, CardAdapter interfacesAdapter, RecyclerView brandingRecyclerView, RecyclerView servicesRecyclerView, RecyclerView interfacesRecyclerView, View fragmentView) {
+    public ButtonAdapter(List<String> buttonLabels, CardAdapter brandingAdapter, CardAdapter servicesAdapter, CardAdapter interfacesAdapter,
+                         RecyclerView brandingRecyclerView, RecyclerView servicesRecyclerView, RecyclerView interfacesRecyclerView,
+                         View fragmentView, CardAdapter editorialAdapter, RecyclerView editorialRecyclerView) {
         this.buttonLabels = buttonLabels;
         this.brandingAdapter = brandingAdapter;
         this.servicesAdapter = servicesAdapter;
@@ -35,11 +39,15 @@ public class ButtonAdapter extends RecyclerView.Adapter<ButtonAdapter.ButtonView
         this.servicesRecyclerView = servicesRecyclerView;
         this.interfacesRecyclerView = interfacesRecyclerView;
         this.fragmentView = fragmentView;
+        this.editorialAdapter = editorialAdapter;
+        this.editorialRecyclerView = editorialRecyclerView;
 
-        visibilityMap.put("All", new Integer[]{View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE});
-        visibilityMap.put("Branding", new Integer[]{View.VISIBLE, View.GONE, View.GONE, View.VISIBLE, View.GONE, View.GONE});
-        visibilityMap.put("Services", new Integer[]{View.GONE, View.VISIBLE, View.GONE, View.GONE, View.VISIBLE, View.GONE});
-        visibilityMap.put("Interface", new Integer[]{View.GONE, View.GONE, View.VISIBLE, View.GONE, View.GONE, View.VISIBLE});
+        // Configuración de visibilidad para cada categoría
+        visibilityMap.put("All", new Integer[]{View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE, View.GONE, View.GONE});
+        visibilityMap.put("Branding", new Integer[]{View.VISIBLE, View.GONE, View.GONE, View.VISIBLE, View.GONE, View.GONE, View.GONE, View.GONE});
+        visibilityMap.put("Services", new Integer[]{View.GONE, View.VISIBLE, View.GONE, View.GONE, View.VISIBLE, View.GONE, View.GONE, View.GONE});
+        visibilityMap.put("Interface", new Integer[]{View.GONE, View.GONE, View.VISIBLE, View.GONE, View.GONE, View.VISIBLE, View.GONE, View.GONE});
+        visibilityMap.put("Editorial", new Integer[]{View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.GONE, View.VISIBLE, View.VISIBLE});
     }
 
     @NonNull
@@ -58,7 +66,7 @@ public class ButtonAdapter extends RecyclerView.Adapter<ButtonAdapter.ButtonView
         if ("All".equals(label)) {
             params.width = (int) (holder.button.getResources().getDisplayMetrics().density * 65.0f);
         } else {
-            params.width = -2;
+            params.width = ViewGroup.LayoutParams.WRAP_CONTENT; // Ancho por defecto
         }
         holder.button.setLayoutParams(params);
         holder.button.setOnClickListener(v -> {
@@ -71,23 +79,29 @@ public class ButtonAdapter extends RecyclerView.Adapter<ButtonAdapter.ButtonView
         });
     }
 
-    public void filterServices(String categoria) {
-        this.brandingAdapter.filterByCategory(categoria);
-        this.servicesAdapter.filterByCategory(categoria);
-        this.interfacesAdapter.filterByCategory(categoria);
+    public void filterServices(String category) {
+        this.brandingAdapter.filterByCategory(category);
+        this.servicesAdapter.filterByCategory(category);
+        this.interfacesAdapter.filterByCategory(category);
+        this.editorialAdapter.filterByCategory(category);
 
+        // Obtención de las vistas de título
         TextView brandingTitle = this.fragmentView.findViewById(R.id.branding_title);
         TextView servicesTitle = this.fragmentView.findViewById(R.id.Services_title);
         TextView interfacesTitle = this.fragmentView.findViewById(R.id.Interfaces_title);
+        TextView editorialTitle = this.fragmentView.findViewById(R.id.Editorial_title);
 
-        Integer[] visibilities = visibilityMap.get(categoria);
-        if (visibilities != null) {
+        // Obtención de visibilidades según la categoría
+        Integer[] visibilities = visibilityMap.get(category);
+        if (visibilities != null && visibilities.length >= 8) {
             brandingTitle.setVisibility(visibilities[0]);
             servicesTitle.setVisibility(visibilities[1]);
             interfacesTitle.setVisibility(visibilities[2]);
             this.brandingRecyclerView.setVisibility(visibilities[3]);
             this.servicesRecyclerView.setVisibility(visibilities[4]);
             this.interfacesRecyclerView.setVisibility(visibilities[5]);
+            editorialTitle.setVisibility(visibilities[6]);
+            this.editorialRecyclerView.setVisibility(visibilities[7]);
         }
     }
 
@@ -105,3 +119,4 @@ public class ButtonAdapter extends RecyclerView.Adapter<ButtonAdapter.ButtonView
         }
     }
 }
+

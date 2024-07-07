@@ -8,12 +8,12 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-/** @noinspection deprecation, deprecation */
 public class WorkFragment extends Fragment implements CardWorkAdapter.OnItemClickListener, CardWorkAdapter.OnDeleteClickListener, PopUpDeleteWork.OnDeleteWorkListener {
 
     private CardWorkAdapter workAdapter;
@@ -26,11 +26,16 @@ public class WorkFragment extends Fragment implements CardWorkAdapter.OnItemClic
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
+        WorkViewModel workViewModel = new ViewModelProvider(requireActivity()).get(WorkViewModel.class);
+
+        workViewModel.newCardData.observe(getViewLifecycleOwner(), newCardData -> {
+            if (newCardData != null) {
+                newCard(newCardData);
+                workViewModel.newCardData.setValue(null);
+            }
+        });
+
         workItemList = new ArrayList<>();
-        workItemList.add(new WorkItem(R.drawable.ic_papelera, "Progress", "Apr 30. 2024", "App Design", "UX/UI Design", 50, R.drawable.ic_appdesign));
-        workItemList.add(new WorkItem(R.drawable.ic_papelera, "Progress", "Apr 30. 2024", "Web Design", "UX/UI Design", 100, R.drawable.ic_webdesign));
-        workItemList.add(new WorkItem(R.drawable.ic_papelera, "Progress", "Apr 30. 2024", "Visual Identity", "Branding", 25, R.drawable.ic_visualidentity));
-        workItemList.add(new WorkItem(R.drawable.ic_papelera, "Progress", "Apr 30. 2024", "Manual Design", "Editorial", 75, R.drawable.ic_manualdesign));
 
         workAdapter = new CardWorkAdapter(workItemList, this, this);
         recyclerView.setAdapter(workAdapter);
@@ -38,14 +43,58 @@ public class WorkFragment extends Fragment implements CardWorkAdapter.OnItemClic
         return view;
     }
 
+    public void newCard(Bundle newCardData){
+
+        String title = newCardData.getString("Title");
+        String category = newCardData.getString("Category");
+
+            WorkItem newWorkItem = new WorkItem(R.drawable.ic_papelera, "Progress", "Apr 30. 2024", title, category, 0, getImageResourceForTitle(category,title), newCardData);
+            workItemList.add(newWorkItem);
+            workAdapter.notifyItemInserted(workItemList.size() - 1);
+
+    }
+
+    private int getImageResourceForTitle(String category,String title) {
+        switch (category) {
+            case "Branding":
+                return R.drawable.ic_branding;
+            case "Services":
+                return R.drawable.ic_services;
+            case "Interface":
+                if(title.contains("Web")){
+                return R.drawable.ic_webdesign;
+                }else{
+                    return R.drawable.ic_appdesign;
+                }
+            case "Editorial":
+                return R.drawable.ic_editorial;
+            default:
+                return 0;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        WorkViewModel workViewModel = new ViewModelProvider(requireActivity()).get(WorkViewModel.class);
+
+        workViewModel.newCardData.observe(getViewLifecycleOwner(), newCardData -> {
+            if (newCardData != null) {
+                newCard(newCardData);
+                workViewModel.newCardData.setValue(null);
+            }
+        });
+    }
+
     @Override
     public void onItemClick(WorkItem workItem) {
         Intent intent = new Intent(getContext(), WorkDetail.class);
         intent.putExtra("itemPosition", workItemList.indexOf(workItem));
         intent.putExtra("Title",workItem.getTitle());
-        intent.putExtra("Description",workItem.getSubtitle());
+        intent.putExtra("Description",workItem.getCategory());
         intent.putExtra("Progress",workItem.getProgress());
         intent.putExtra("Time",workItem.getDate());
+        intent.putExtra("CardData", workItem.getCardData());
         startActivityForResult(intent, REQUEST_DELETE_WORK);
     }
 

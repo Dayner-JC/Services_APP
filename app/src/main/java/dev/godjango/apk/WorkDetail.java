@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,8 @@ public class WorkDetail extends AppCompatActivity implements PopUpDeleteWork.OnD
     private View scrollView;
     private TextView textDescriptionContent;
     private int itemPosition;
+    private TextView fieldDates,paymentDates,totalToPay,date,price,time;
+    private ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,13 @@ public class WorkDetail extends AppCompatActivity implements PopUpDeleteWork.OnD
     private void initializeViews() {
         scrollView = findViewById(R.id.ScrollView);
         textDescriptionContent = findViewById(R.id.text_description_content);
+        fieldDates = findViewById(R.id.Field_Dates);
+        paymentDates = findViewById(R.id.Payment_Dates);
+        totalToPay = findViewById(R.id.Total_To_Pay_Date);
+        image = findViewById(R.id.Image);
+        date = findViewById(R.id.text_date_time);
+        price = findViewById(R.id.Price);
+        time = findViewById(R.id.Time);
     }
 
     private void setupListeners() {
@@ -38,12 +48,39 @@ public class WorkDetail extends AppCompatActivity implements PopUpDeleteWork.OnD
         findViewById(R.id.Work_button_delete).setOnClickListener(this::onDeleteServiceClick);
     }
 
-    @SuppressLint("DefaultLocale")
+    @SuppressLint({"DefaultLocale", "SetTextI18n"})
     private void populateViews() {
         itemPosition = getIntent().getIntExtra("itemPosition", -1);
         int progress = getIntent().getIntExtra("Progress", 0);
         String title = getIntent().getStringExtra("Title");
         String category = getIntent().getStringExtra("Description");
+        Bundle cardData = getIntent().getBundleExtra("CardData");
+
+        if (cardData != null) {
+
+            String name = cardData.getString("Name");
+            String lastName = cardData.getString("Last Name");
+            String email = cardData.getString("Email");
+            String countryNumber = cardData.getString("Country Number");
+            String phoneNumber = cardData.getString("Phone Number");
+            String country = cardData.getString("Country");
+            String amountPaid = cardData.getString("Amount Paid");
+            String priceService = cardData.getString("Price Service");
+            String timeService = cardData.getString("Time");
+            int imageId = cardData.getInt("Image");
+
+            fieldDates.setText(name + "\n" + lastName + "\n" + email + "\n" + "PayPal" + "\n" + countryNumber + " " + phoneNumber + "\n" + country);
+            paymentDates.setText(amountPaid + "0$" + "\n" + priceService + "0$");
+
+            if(priceService != null && amountPaid != null) {
+                double total_to_pay = Double.parseDouble(priceService) - Double.parseDouble(amountPaid);
+                totalToPay.setText(total_to_pay + "0$");
+            }
+            image.setImageResource(imageId);
+            date.setText(cardData.getString("Request Date"));
+            price.setText("$ " + priceService + "0");
+            time.setText(timeService);
+        }
 
         ((TextView) findViewById(R.id.Categoria)).setText(category);
         ((TextView) findViewById(R.id.Title)).setText(title);

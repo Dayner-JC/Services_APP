@@ -1,7 +1,8 @@
 package dev.godjango.apk;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,10 +12,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.fragment.app.DialogFragment;
+
 import java.util.Objects;
 
 public class PopUpRequest extends DialogFragment {
     private Dialog firstDialog;
+    private Bundle cardData;
 
     public static PopUpRequest newInstance(String name, String lastName, String email, String countryNumber, String phoneNumberText, String country, double pay, double total_to_pay) {
         PopUpRequest fragment = new PopUpRequest();
@@ -27,8 +30,13 @@ public class PopUpRequest extends DialogFragment {
         args.putString("phoneNumber", phoneNumberText);
         args.putDouble("total_to_pay", total_to_pay);
         args.putDouble("pay", pay);
+
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public void setCardData(Bundle cardData) {
+        this.cardData = cardData;
     }
 
     @Override
@@ -86,16 +94,19 @@ public class PopUpRequest extends DialogFragment {
         }
 
         Button button_accept = dialog.findViewById(R.id.Button_Accept_Request);
-        button_accept.setOnClickListener(PopUpRequest.this::onViewCreated);
+        button_accept.setOnClickListener(this::onViewCreated);
     }
 
     public void onViewCreated(View v) {
         dismiss();
-        Intent intent = new Intent(getActivity(), Navigation.class);
-        startActivity(intent);
         if (this.firstDialog != null) {
             this.firstDialog.dismiss();
         }
+        if (cardData != null) {
+            Intent data = new Intent();
+            data.putExtra("newCardData", cardData);
+            requireActivity().setResult(RESULT_OK, data);
+            requireActivity().finish();
+        }
     }
-
 }

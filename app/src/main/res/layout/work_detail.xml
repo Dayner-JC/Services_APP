@@ -84,7 +84,7 @@
         <TextView
             android:textSize="16sp"
             android:textColor="@color/white"
-            android:id="@+id/Precio"
+            android:id="@+id/Price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="7dp"
@@ -92,11 +92,11 @@
             android:layout_alignParentBottom="true"
             android:fontFamily="@font/sf_pro_semibold"
             android:layout_marginEnd="0dp"
-            android:layout_toStartOf="@+id/Tiempo"
+            android:layout_toStartOf="@+id/Time"
             tools:ignore="RelativeOverlap" />
         <TextView
             android:textColor="@color/white"
-            android:id="@+id/Tiempo"
+            android:id="@+id/Time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="9dp"
@@ -229,19 +229,20 @@
                         android:textColor="@color/active_dot_color"
                         android:textSize="12sp"
                         tools:ignore="TextSizeCheck" />
+
                     <TextView
-                        android:textSize="12sp"
-                        android:textColor="@color/active_dot_color"
-                        android:id="@+id/Campo_Name"
+                        android:id="@+id/Field_Dates"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="@string/carlos_juan_nsanchez_perez_ncarlosjuansp_gmail_com_npaypal_n_1_523_254_5489_nunited_states"
                         android:layout_below="@+id/Text_Receipt"
-                        android:lineSpacingExtra="2dp"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_toEndOf="@+id/Text_Campos"
                         android:fontFamily="@font/sf_pro_"
-                        android:layout_marginStart="80dp"
-                        android:layout_toEndOf="@+id/Text_Campos"/>
+                        android:lineSpacingExtra="2dp"
+                        android:text="@string/carlos_juan_nsanchez_perez_ncarlosjuansp_gmail_com_npaypal_n_1_523_254_5489_nunited_states"
+                        android:textColor="@color/active_dot_color"
+                        android:textSize="12sp" />
                     <View
                         android:id="@+id/horizontalLine"
                         android:background="#1a1a3c"
@@ -271,14 +272,14 @@
                     <TextView
                         android:textSize="12sp"
                         android:textColor="@color/active_dot_color"
-                        android:id="@+id/Text_Payment_Info"
+                        android:id="@+id/Payment_Dates"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="11dp"
                         android:text="@string/_10_00_n20_00"
                         android:layout_below="@+id/horizontalLine"
                         android:lineSpacingExtra="2dp"
-                        android:layout_marginStart="80dp"
+                        android:layout_marginStart="60dp"
                         android:layout_toEndOf="@+id/Text_Payment"/>
                     <View
                         android:id="@+id/horizontalLine2"
@@ -306,14 +307,14 @@
                     <TextView
                         android:textSize="12sp"
                         android:textColor="@color/active_dot_color"
-                        android:id="@+id/Text_Total_Date"
+                        android:id="@+id/Total_To_Pay_Date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="9dp"
                         android:text="@string/_10_00_"
                         android:layout_below="@+id/horizontalLine2"
                         android:fontFamily="@font/sf_pro_"
-                        android:layout_marginStart="80dp"
+                        android:layout_marginStart="60dp"
                         android:layout_toEndOf="@+id/Text_Total"/>
                 </RelativeLayout>
             </RelativeLayout>

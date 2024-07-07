@@ -1,12 +1,15 @@
 package dev.godjango.apk;
 
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +21,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
@@ -37,50 +43,72 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
     private ImageButton closeButton;
     private ImageView imageSearch;
     private PageIndicator pageIndicator;
-    private TextView removeFocusTextView,Branding_Text,Services_Text,Interface_Text;
+    private TextView removeFocusTextView, Branding_Text, Services_Text, Interface_Text, Editorial_Text;
     private EditText searchEditText;
     private ViewPager2 viewPager2;
     private final Handler sliderHandler = new Handler();
     private final Runnable sliderRunnable = () -> viewPager2.setCurrentItem(viewPager2.getCurrentItem() + 1);
-    private CardAdapter brandingAdapter, servicesAdapter, interfacesAdapter;
-    private List<CardServices> brandingServices, servicesServices, interfacesServices;
-    private View brandingRecyclerView, servicesRecyclerView, interfacesRecyclerView,ToolBar,buttonRecyclerView;
+    private CardAdapter brandingAdapter, servicesAdapter, interfacesAdapter, editorialAdapter;
+    private List<CardServices> brandingServices, servicesServices, interfacesServices, editorialServices;
+    private View brandingRecyclerView, servicesRecyclerView, interfacesRecyclerView, ToolBar, buttonRecyclerView, editorialRecyclerView;
     private AppBarLayout appBar;
+    private ActivityResultLauncher<Intent> startForResult;
+    List<CardServices> services;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        startForResult = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        Bundle newCardData = data != null ? data.getBundleExtra("newCardData") : null;
+                        if (newCardData != null) {
+                            WorkViewModel workViewModel = new ViewModelProvider(requireActivity()).get(WorkViewModel.class);
+                            workViewModel.newCardData.setValue(newCardData);
+                        }
+                    }
+                }
+        );
+
         brandingRecyclerView = view.findViewById(R.id.branding_recycler_view);
         servicesRecyclerView = view.findViewById(R.id.services_recycler_view);
-        interfacesRecyclerView = view.findViewById(R.id.interfaces_recycler_view);
+        interfacesRecyclerView = view.findViewById(R.id.Interfaces_recycler_view);
+        editorialRecyclerView = view.findViewById(R.id.Editorial_recycler_view);
         buttonRecyclerView = view.findViewById(R.id.button_recycler_view);
         Branding_Text = view.findViewById(R.id.branding_title);
         Services_Text = view.findViewById(R.id.Services_title);
         Interface_Text = view.findViewById(R.id.Interfaces_title);
+        Editorial_Text = view.findViewById(R.id.Editorial_title);
 
         appBar = view.findViewById(R.id.app_bar);
 
         setupRecyclerView((RecyclerView) brandingRecyclerView);
         setupRecyclerView((RecyclerView) servicesRecyclerView);
         setupRecyclerView((RecyclerView) interfacesRecyclerView);
+        setupRecyclerView((RecyclerView) editorialRecyclerView);
         setupRecyclerView((RecyclerView) buttonRecyclerView);
 
-        List<CardServices> services = getAllServices();
+        services = getAllServices();
         brandingServices = filter(services, "Branding");
         servicesServices = filter(services, "Services");
         interfacesServices = filter(services, "Interface");
+        editorialServices = filter(services, "Editorial");
 
         brandingAdapter = new CardAdapter(brandingServices, this);
         servicesAdapter = new CardAdapter(servicesServices, this);
         interfacesAdapter = new CardAdapter(interfacesServices, this);
+        editorialAdapter = new CardAdapter(editorialServices, this);
 
         ((RecyclerView) brandingRecyclerView).setAdapter(brandingAdapter);
         ((RecyclerView) servicesRecyclerView).setAdapter(servicesAdapter);
         ((RecyclerView) interfacesRecyclerView).setAdapter(interfacesAdapter);
+        ((RecyclerView) editorialRecyclerView).setAdapter(editorialAdapter);
 
-        List<String> buttonLabels = Arrays.asList("All", "Branding", "Interface", "Services");
-        ButtonAdapter buttonAdapter = new ButtonAdapter(buttonLabels, brandingAdapter, servicesAdapter, interfacesAdapter, (RecyclerView) brandingRecyclerView, (RecyclerView) servicesRecyclerView, (RecyclerView) interfacesRecyclerView, view);
+        List<String> buttonLabels = Arrays.asList("All", "Branding", "Interface", "Services", "Editorial");
+        ButtonAdapter buttonAdapter = new ButtonAdapter(buttonLabels, brandingAdapter, servicesAdapter, interfacesAdapter, (RecyclerView) brandingRecyclerView, (RecyclerView) servicesRecyclerView, (RecyclerView) interfacesRecyclerView, view, editorialAdapter, (RecyclerView) editorialRecyclerView);
         ((RecyclerView) buttonRecyclerView).setAdapter(buttonAdapter);
 
         setupViewPager(view);
@@ -98,15 +126,21 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
 
     private List<CardServices> getAllServices() {
         return new ArrayList<>(Arrays.asList(
-                new CardServices(R.drawable.branding1, "Visual Identity", "Branding", "$20.00", "/Month"),
-                new CardServices(R.drawable.branding2, "Manual", "Branding", "$30.00", "/Month"),
-                new CardServices(R.drawable.branding3, "UI/UX Design", "Branding", "$20.00", "/Month"),
-                new CardServices(R.drawable.interface1, "Visual Identity", "Interface", "$20.00", "/Month"),
-                new CardServices(R.drawable.interface2, "Visual Identity", "Interface", "$20.00", "/Month"),
-                new CardServices(R.drawable.interface3, "App Design", "Interface", "$25.00", "/Month"),
-                new CardServices(R.drawable.services1, "Visual Identity", "Services", "$20.00", "/Month"),
-                new CardServices(R.drawable.services2, "Visual Identity", "Services", "$50.00", "/Month"),
-                new CardServices(R.drawable.services3, "Visual Identity", "Services", "$20.00", "/Month")
+                new CardServices(R.drawable.card_service_image, "Visual Identity", "Branding", "$10.00", "/Month",false),
+                new CardServices(R.drawable.card_service_image, "Identity Manual", "Branding", "$80.00", "/Month",true),
+                new CardServices(R.drawable.card_service_image, "Website Design", "Interface", "$10.00", "",false),
+                new CardServices(R.drawable.card_service_image, "APK Design", "Interface", "$10.00", "",false),
+                new CardServices(R.drawable.card_service_image, "Pre-designed Website", "Interface", "$10.00", "/Month",true),
+                new CardServices(R.drawable.card_service_image, "Custom Website Development", "Interface", "$10.00", "",false),
+                new CardServices(R.drawable.card_service_image, "Subscriber Service", "Services", "$40.00", "/Month",false),
+                new CardServices(R.drawable.card_service_image, "VIP Quarks", "Services", "$15.00", "/Month",true),
+                new CardServices(R.drawable.card_service_image, "Space in MercoCuba", "Services", "$20.00", "/Month",false),
+                new CardServices(R.drawable.card_service_image, "Management Platform for Taxi", "Services", "$30.00", "/Month",false),
+                new CardServices(R.drawable.card_service_image, "Creation of Product Catalog", "Editorial", "$5.00", "/Month",false),
+                new CardServices(R.drawable.card_service_image, "Advertising Banner Design", "Editorial", "$10.00", "",false),
+                new CardServices(R.drawable.card_service_image, "Promotional Posts", "Editorial", "$1.00", "/Month",true),
+                new CardServices(R.drawable.card_service_image, "Digital Menu on the Internet", "Editorial", "$5.00", "/Month",false)
+
         ));
     }
 
@@ -179,7 +213,8 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
         searchEditText.setOnFocusChangeListener((v, hasFocus) -> handleSearchFocusChange(originalMargin, maxMarginPixels, hintText, hasFocus));
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -188,7 +223,8 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         removeFocusTextView.setOnClickListener(v -> handleRemoveFocus(originalMargin));
@@ -198,10 +234,12 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
         List<CardServices> filteredBrandingServices = filterServices(brandingServices, query);
         List<CardServices> filteredServicesServices = filterServices(servicesServices, query);
         List<CardServices> filteredInterfacesServices = filterServices(interfacesServices, query);
+        List<CardServices> filteredEditorialServices = filterServices(editorialServices, query);
 
         brandingAdapter.updateList(filteredBrandingServices);
         servicesAdapter.updateList(filteredServicesServices);
         interfacesAdapter.updateList(filteredInterfacesServices);
+        editorialAdapter.updateList(filteredEditorialServices);
 
         boolean isSearching = !query.isEmpty();
 
@@ -211,6 +249,7 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
         Branding_Text.setVisibility(visibility);
         Services_Text.setVisibility(visibility);
         Interface_Text.setVisibility(visibility);
+        Editorial_Text.setVisibility(visibility);
 
         ViewGroup.LayoutParams layoutParams = appBar.getLayoutParams();
         if (isSearching) {
@@ -223,6 +262,7 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
         brandingRecyclerView.setVisibility(filteredBrandingServices.isEmpty() ? View.GONE : View.VISIBLE);
         servicesRecyclerView.setVisibility(filteredServicesServices.isEmpty() ? View.GONE : View.VISIBLE);
         interfacesRecyclerView.setVisibility(filteredInterfacesServices.isEmpty() ? View.GONE : View.VISIBLE);
+        editorialRecyclerView.setVisibility(filteredEditorialServices.isEmpty() ? View.GONE : View.VISIBLE);
     }
 
     private List<CardServices> filterServices(List<CardServices> services, String query) {
@@ -268,7 +308,7 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
         }
         closeButton.setOnClickListener(v -> {
             searchEditText.setText("");
-            if(!hasFocus){
+            if (!hasFocus) {
                 hintText.setVisibility(View.VISIBLE);
                 imageSearch.setVisibility(View.VISIBLE);
             }
@@ -301,6 +341,17 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
         intent.putExtra("Image", cardServices.getImage());
         intent.putExtra("Price", cardServices.getPrice());
         intent.putExtra("Time", cardServices.getTime());
-        startActivity(intent);
+        intent.putExtra("ClickedCard", cardServices);
+
+        ArrayList<CardServices> sameCategoryCards = new ArrayList<>();
+        for (CardServices card : services) {
+            if (card.getCategory().equals(cardServices.getCategory())) {
+                sameCategoryCards.add(card);
+            }
+        }
+        intent.putParcelableArrayListExtra("CardsOfSameCategory", sameCategoryCards);
+
+        startForResult.launch(intent);
     }
+
 }

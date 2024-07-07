@@ -52,7 +52,7 @@ public class CardWorkAdapter extends RecyclerView.Adapter<CardWorkAdapter.WorkVi
         WorkItem workItem = this.workItemList.get(position);
         holder.dateTextView.setText(workItem.getDate());
         holder.titleTextView.setText(workItem.getTitle());
-        holder.subtitleTextView.setText(workItem.getSubtitle());
+        holder.subtitleTextView.setText(workItem.getCategory());
         holder.progressTextView.setText(workItem.getProgress() + "%");
         holder.iconImageView.setImageResource(workItem.getIconResId());
         holder.progressText.setText(workItem.getProgressText());

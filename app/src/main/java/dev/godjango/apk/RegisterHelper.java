@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -49,9 +50,11 @@ public class RegisterHelper {
     private static double amountEntered;
     private static String price;
     private static double priceDouble;
+    private static Bundle cardData;
 
-    public RegisterHelper(AppCompatActivity activity, String price) {
+    public RegisterHelper(Bundle cardData, AppCompatActivity activity, String price) {
         RegisterHelper.activity = activity;
+        RegisterHelper.cardData = cardData;
         RegisterHelper.price = price.replace(" ", "");
         priceDouble = Double.parseDouble(RegisterHelper.price.substring(1));
         configureCountryData();
@@ -82,6 +85,8 @@ public class RegisterHelper {
         TextView passwordError = dialog.findViewById(R.id.password_error_text);
         TextView amountError = dialog.findViewById(R.id.Amount_Error);
         TextView phoneError = dialog.findViewById(R.id.PhoneNumberError);
+        TextView priceService = dialog.findViewById(R.id.Price);
+        TextView timeForPay = dialog.findViewById(R.id.Time);
         phoneNumber = dialog.findViewById(R.id.Phone_Number);
         country = dialog.findViewById(R.id.Country);
         country_number = dialog.findViewById(R.id.Country_Number);
@@ -92,6 +97,10 @@ public class RegisterHelper {
         double halfOriginalPrice = Double.parseDouble(priceWithOutDollar) / 2;
         String finalPrice = String.format("$%.2f", halfOriginalPrice).replace(",", ".");
         amount.setText(finalPrice);
+        amountEntered = halfOriginalPrice;
+
+        priceService.setText(price.replace("$", "$ "));
+        timeForPay.setText(cardData.getString("Time"));
 
         nameError.setVisibility(View.GONE);
         lastNameError.setVisibility(View.GONE);
@@ -314,7 +323,7 @@ public class RegisterHelper {
             isValid &= ValidateRegister.validatePhoneNumber(phoneNumber, phoneError);
 
             if(isValid) {
-                showPopUp(activity);
+               showPopUp(activity);
             }
 
         });
@@ -355,7 +364,7 @@ public class RegisterHelper {
         builder.show();
     }
 
-    private static void showPopUp(AppCompatActivity activity) {
+   private static void showPopUp(AppCompatActivity activity) {
         String nameText = name.getText().toString();
         String lastNameText = lastName.getText().toString();
         String emailText = email.getText().toString();
@@ -367,5 +376,27 @@ public class RegisterHelper {
         popUpRequest.setCancelable(false);
         popUpRequest.setFirstDialog(dialog);
         popUpRequest.show(activity.getSupportFragmentManager(), "PopUpRequest");
+
+        Bundle userData = new Bundle();
+        userData.putString("Name", nameText);
+        userData.putString("Last Name", lastNameText);
+        userData.putString("Email", emailText);
+        userData.putString("Country Number", countryNumberText);
+        userData.putString("Phone Number", phoneNumberText);
+        userData.putString("Country", countryText);
+        userData.putString("Amount Paid", String.valueOf(amountEntered));
+        userData.putString("Price Service", String.valueOf(priceDouble));
+
+       String currentDate = DateUtil.getCurrentDateFormatted();
+       userData.putString("Request Date", currentDate);
+
+       Bundle mergedData = new Bundle();
+       if (cardData != null) {
+           mergedData.putAll(cardData);
+       }
+       mergedData.putAll(userData);
+
+       popUpRequest.setCardData(mergedData);
+
     }
 }
