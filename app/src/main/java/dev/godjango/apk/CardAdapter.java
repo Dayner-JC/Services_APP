@@ -64,6 +64,14 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         holder.category.setText(service.getCategory());
         holder.price.setText(service.getPrice());
         holder.time.setText(service.getTime());
+
+        if (service.getPrice().equals("To Quote")) {
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.price.getLayoutParams();
+            int newMarginEnd = UnitConverter.dpToPx(holder.itemView.getContext(),19);
+            params.setMarginEnd(newMarginEnd);
+            holder.price.setLayoutParams(params);
+        }
+
     }
 
     @Override

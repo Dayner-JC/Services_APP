@@ -77,9 +77,13 @@ public class CardDetail extends AppCompatActivity {
         String priceText;
         if(price != null) {
             priceWithOutSymbol = price.substring(1);
-            priceText = "$ " + priceWithOutSymbol;
+            if(!price.equals("To Quote")) {
+                priceText = "$ " + priceWithOutSymbol;
+            }else{
+                priceText = price;
+            }
         } else {
-            priceText = "";
+            priceText = "To Quote";
         }
 
 
@@ -116,7 +120,7 @@ public class CardDetail extends AppCompatActivity {
             cardData.putString("Time", time);
             cardData.putInt("Image", imageId);
 
-            RegisterHelper registerHelper = new RegisterHelper(cardData,this, priceText);
+            RegisterHelper registerHelper = new RegisterHelper(cardData,this, priceText,title,category);
             RegisterHelper.showRegister();
 
         });

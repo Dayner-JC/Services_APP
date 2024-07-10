@@ -3,6 +3,8 @@ package dev.godjango.apk;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -25,6 +27,17 @@ import java.util.Map;
 import java.util.Objects;
 
 import android.view.Gravity;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /** @noinspection all*/
 public class RegisterHelper {
@@ -32,6 +45,7 @@ public class RegisterHelper {
     private static final CountryData countryData = new CountryData();
     private static final Map<String, List<String>> countryToPhoneCodesMap = countryData.getCountryToPhoneCodesMap();
     private static final List<String> countryNames = new ArrayList<>();
+    private static String title,category;
     private static AppCompatActivity activity;
     private static Dialog dialog;
     private static EditText password;
@@ -42,7 +56,7 @@ public class RegisterHelper {
     private static EditText phoneNumber;
     private static EditText country_number;
     private static Spinner country;
-    private static TextView countryError;
+    private static TextView countryError,textAlert;
     private static PasswordVisibility passwordVisibility;
     private static CountryAdapter countryAdapter;
     private static boolean ignoreTextWatcher = false;
@@ -51,12 +65,20 @@ public class RegisterHelper {
     private static String price;
     private static double priceDouble;
     private static Bundle cardData;
+    private static PopUpRequest popUpRequest;
 
-    public RegisterHelper(Bundle cardData, AppCompatActivity activity, String price) {
+    public RegisterHelper(Bundle cardData, AppCompatActivity activity, String price,String title,String category) {
         RegisterHelper.activity = activity;
         RegisterHelper.cardData = cardData;
-        RegisterHelper.price = price.replace(" ", "");
-        priceDouble = Double.parseDouble(RegisterHelper.price.substring(1));
+        RegisterHelper.title = title;
+        RegisterHelper.category = category;
+        if(!price.equals("To Quote")) {
+            RegisterHelper.price = price.replace(" ", "");
+            priceDouble = Double.parseDouble(RegisterHelper.price.substring(1));
+        }
+        else{
+            RegisterHelper.price = price;
+        }
         configureCountryData();
     }
 
@@ -72,6 +94,7 @@ public class RegisterHelper {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
 
+        textAlert = dialog.findViewById(R.id.Text_Alert);
         ImageButton passwordVisible = dialog.findViewById(R.id.Button_Password);
         password = dialog.findViewById(R.id.Password);
         name = dialog.findViewById(R.id.Name);
@@ -79,6 +102,8 @@ public class RegisterHelper {
         email = dialog.findViewById(R.id.Email);
         amount = dialog.findViewById(R.id.Amount);
         countryError = dialog.findViewById(R.id.PhoneError);
+        TextView titleView = dialog.findViewById(R.id.Title);
+        TextView categoryView = dialog.findViewById(R.id.Categoria);
         TextView nameError = dialog.findViewById(R.id.name_error_text);
         TextView lastNameError = dialog.findViewById(R.id.last_name_error_text);
         TextView emailError = dialog.findViewById(R.id.email_error_text);
@@ -92,14 +117,24 @@ public class RegisterHelper {
         country_number = dialog.findViewById(R.id.Country_Number);
         Button request_service = dialog.findViewById(R.id.button_request_2);
 
-        String priceString = String.valueOf(price);
-        String priceWithOutDollar = priceString.replace("$", "");
-        double halfOriginalPrice = Double.parseDouble(priceWithOutDollar) / 2;
-        String finalPrice = String.format("$%.2f", halfOriginalPrice).replace(",", ".");
-        amount.setText(finalPrice);
-        amountEntered = halfOriginalPrice;
+        titleView.setText(title);
+        categoryView.setText(category);
 
-        priceService.setText(price.replace("$", "$ "));
+        String priceString = String.valueOf(price);
+        if(!price.equals("To Quote")) {
+            String priceWithOutDollar = priceString.replace("$", "");
+            double halfOriginalPrice = Double.parseDouble(priceWithOutDollar) / 2;
+            String finalPrice = String.format("$%.2f", halfOriginalPrice).replace(",", ".");
+            amount.setText(finalPrice);
+            amountEntered = halfOriginalPrice;
+            priceService.setText(price.replace("$", "$ "));
+        }
+        else{
+            amount.setText("To Quote");
+            amount.setEnabled(false);
+            priceService.setText("To Quote");
+            textAlert.setText("Once you request the service, we'll send you over to Contact to sort out the payment.");
+        }
         timeForPay.setText(cardData.getString("Time"));
 
         nameError.setVisibility(View.GONE);
@@ -267,23 +302,28 @@ public class RegisterHelper {
                     isValid = false;
                     errorMessage = "Amount cannot be empty";
                 } else {
-                    if (!amountText.startsWith("$")) {
-                        amountText = "$" + amountText;
-                        amount.setText(amountText);
-                        amount.setSelection(amountText.length());
-                    }
-
-                    if (!amountText.endsWith(".00")) {
-                        isValid = false;
-                        errorMessage = "Amount must end with '.00'";
-                    } else {
-
-                        String amountWithoutDollar = amountText.substring(1);
-                        amountEntered = Double.parseDouble(amountWithoutDollar);
-                        if (amountEntered < mitadPrecioOriginal || amountEntered > Double.parseDouble(priceString.substring(1))) {
-                            isValid = false;
-                            errorMessage = "Enter a valid amount";
+                    if(!amountText.equals("To Quote")) {
+                        if (!amountText.startsWith("$")) {
+                            amountText = "$" + amountText;
+                            amount.setText(amountText);
+                            amount.setSelection(amountText.length());
                         }
+
+                        if (!amountText.endsWith(".00")) {
+                            isValid = false;
+                            errorMessage = "Amount must end with '.00'";
+                        } else {
+
+                            String amountWithoutDollar = amountText.substring(1);
+                            amountEntered = Double.parseDouble(amountWithoutDollar);
+                            if (amountEntered < mitadPrecioOriginal || amountEntered > Double.parseDouble(priceString.substring(1))) {
+                                isValid = false;
+                                errorMessage = "Enter a valid amount";
+                            }
+
+                        }
+                    }else{
+                        amountEntered = 0.0;
                     }
                 }
 
@@ -323,7 +363,15 @@ public class RegisterHelper {
             isValid &= ValidateRegister.validatePhoneNumber(phoneNumber, phoneError);
 
             if(isValid) {
-               showPopUp(activity);
+                registerUser(
+                        name.getText().toString(),
+                        lastName.getText().toString(),
+                        email.getText().toString(),
+                        password.getText().toString(),
+                        country_number.getText().toString(),
+                        phoneNumber.getText().toString(),
+                        country.getSelectedItem().toString()
+                );
             }
 
         });
@@ -371,8 +419,7 @@ public class RegisterHelper {
         String countryNumberText = country_number.getText().toString();
         String countryText = country.getSelectedItem().toString();
         String phoneNumberText = phoneNumber.getText().toString();
-
-        PopUpRequest popUpRequest = PopUpRequest.newInstance(nameText, lastNameText, emailText, countryNumberText, phoneNumberText, countryText, amountEntered, priceDouble);
+        popUpRequest = PopUpRequest.newInstance(nameText, lastNameText, emailText, countryNumberText, phoneNumberText, countryText, amountEntered, priceDouble);
         popUpRequest.setCancelable(false);
         popUpRequest.setFirstDialog(dialog);
         popUpRequest.show(activity.getSupportFragmentManager(), "PopUpRequest");
@@ -399,4 +446,50 @@ public class RegisterHelper {
        popUpRequest.setCardData(mergedData);
 
     }
+
+   public static void registerUser(String name, String lastName, String email, String password, String countryNumber, String phoneNumber, String country) {
+        String url = "http://192.168.43.9:3000/auth/users/";
+
+        JSONObject userData = new JSONObject();
+        try {
+            userData.put("name", name);
+            userData.put("lastName", lastName);
+            userData.put("email", email);
+            userData.put("password", password);
+            userData.put("countryNumber", countryNumber);
+            userData.put("phoneNumber", phoneNumber);
+            userData.put("country", country);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(activity, "Error preparing the data", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, userData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Toast.makeText(activity, "User registered successfully", Toast.LENGTH_SHORT).show();
+
+                        SharedPreferences sharedPreferences = activity.getSharedPreferences("app_prefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean("is_logged_in", true);
+                        editor.apply();
+
+                        showPopUp(activity);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(activity, "Error registering the user", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(activity);
+        queue.add(jsonObjectRequest);
+    }
+
 }

@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="170dp"
+    android:layout_width="175dp"
     android:layout_height="170dp"
     android:layout_margin="8dp"
     app:cardBackgroundColor="#e6e6e6"
@@ -60,12 +60,12 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="23dp"
-            android:layout_marginEnd="-10dp"
-            android:text="@string/app_design"
+            android:layout_marginStart="5dp"
+            android:text="Creation of product Catalog"
             android:textColor="@color/color_selected"
             android:textSize="13sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/icon"
             app:layout_constraintTop_toBottomOf="@+id/date"
             tools:ignore="TextSizeCheck" />
 
@@ -73,11 +73,11 @@
             android:id="@+id/subtitle"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="5dp"
             android:text="@string/ux_ui_design"
             android:textColor="@color/color_selected"
             android:textSize="11sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/icon"
             app:layout_constraintTop_toBottomOf="@+id/title"
             tools:ignore="TextSizeCheck" />
 
@@ -86,7 +86,6 @@
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="36dp"
             android:layout_marginEnd="5dp"
             android:progress="50"
             android:progressDrawable="@drawable/progress_bar"
@@ -94,7 +93,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.277"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/subtitle" />
+            app:layout_constraintTop_toBottomOf="@+id/textProgress" />
 
         <TextView
             android:id="@+id/progressText"
@@ -104,21 +103,21 @@
             android:layout_marginBottom="-3dp"
             android:text="@string/_50"
             android:textColor="@color/color_selected"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
         <TextView
             android:id="@+id/textProgress"
             android:layout_width="53dp"
             android:layout_height="17dp"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="13dp"
             android:fontFamily="@font/sf_pro_semibold"
             android:text="@string/progress"
             android:textColor="@color/color_selected"
             android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/subtitle"
+            app:layout_constraintTop_toBottomOf="@+id/icon"
             tools:ignore="TextSizeCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -6,10 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -128,21 +126,26 @@ public class HomeFragment extends Fragment implements CardAdapter.OnItemClickLis
         return new ArrayList<>(Arrays.asList(
                 new CardServices(R.drawable.card_service_image, "Visual Identity", "Branding", "$10.00", "/Month",false),
                 new CardServices(R.drawable.card_service_image, "Identity Manual", "Branding", "$80.00", "/Month",true),
-                new CardServices(R.drawable.card_service_image, "Website Design", "Interface", "$10.00", "",false),
-                new CardServices(R.drawable.card_service_image, "APK Design", "Interface", "$10.00", "",false),
+
+                new CardServices(R.drawable.card_service_image, "Website Design", "Interface", "To Quote", "",false),
+                new CardServices(R.drawable.card_service_image, "APK Design", "Interface", "To Quote", "",false),
                 new CardServices(R.drawable.card_service_image, "Pre-designed Website", "Interface", "$10.00", "/Month",true),
-                new CardServices(R.drawable.card_service_image, "Custom Website Development", "Interface", "$10.00", "",false),
+                new CardServices(R.drawable.card_service_image, "Custom Website Development", "Interface", "To Quote", "",false),
+
                 new CardServices(R.drawable.card_service_image, "Subscriber Service", "Services", "$40.00", "/Month",false),
                 new CardServices(R.drawable.card_service_image, "VIP Quarks", "Services", "$15.00", "/Month",true),
                 new CardServices(R.drawable.card_service_image, "Space in MercoCuba", "Services", "$20.00", "/Month",false),
                 new CardServices(R.drawable.card_service_image, "Management Platform for Taxi", "Services", "$30.00", "/Month",false),
+
                 new CardServices(R.drawable.card_service_image, "Creation of Product Catalog", "Editorial", "$5.00", "/Month",false),
-                new CardServices(R.drawable.card_service_image, "Advertising Banner Design", "Editorial", "$10.00", "",false),
+                new CardServices(R.drawable.card_service_image, "Advertising Banner Design", "Editorial", "To Quote", "",false),
                 new CardServices(R.drawable.card_service_image, "Promotional Posts", "Editorial", "$1.00", "/Month",true),
                 new CardServices(R.drawable.card_service_image, "Digital Menu on the Internet", "Editorial", "$5.00", "/Month",false)
 
         ));
+
     }
+
 
     private List<CardServices> filter(List<CardServices> services, String category) {
         List<CardServices> filteredServices = new ArrayList<>();

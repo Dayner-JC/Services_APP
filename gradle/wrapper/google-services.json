@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "351236029153",
+    "project_id": "godjangoservices",
+    "storage_bucket": "godjangoservices.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351236029153:android:6adf713e60f41debb915a0",
+        "android_client_info": {
+          "package_name": "dev.godjango.apk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoR1f7b_FwJ4xA2JoOs5mm0EZZ653iIWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

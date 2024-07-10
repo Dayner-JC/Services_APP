@@ -76,21 +76,31 @@ public class PopUpRequest extends DialogFragment {
             String countryNumber = getArguments().getString("countryNumber");
             String country = getArguments().getString("country");
             String phoneNumber = getArguments().getString("phoneNumber");
+            String allInfo = String.format("%s\n%s\n%s\n%s\n%s %s\n%s", name, lastName, email, "PayPal", countryNumber, phoneNumber, country);
+
             double pay = getArguments().getDouble("pay");
-            double total_to_pay = getArguments().getDouble("total_to_pay");
-            double PaymentDue = total_to_pay - pay;
-            String Pay = "PayPal";
-            String pay_text = pay +"0 $";
-            String total_pay_text = total_to_pay + "0 $";
-            String PaymentDue_text = PaymentDue + "0 $";
+            if(pay != 0.0) {
+                double total_to_pay = getArguments().getDouble("total_to_pay");
+                double PaymentDue = total_to_pay - pay;
+                String pay_text = pay + "0 $";
+                String total_pay_text = total_to_pay + "0 $";
+                String PaymentDue_text = PaymentDue + "0 $";
 
-            String allInfo = String.format("%s\n%s\n%s\n%s\n%s %s\n%s", name, lastName, email, Pay, countryNumber, phoneNumber, country);
-            String PagoInfo = String.format("%s\n%s", pay_text, total_pay_text);
-            String PaymentDue_string = String.format("%s", PaymentDue_text);
+                String PagoInfo = String.format("%s\n%s", pay_text, total_pay_text);
+                String PaymentDue_string = String.format("%s", PaymentDue_text);
 
-            field_name.setText(allInfo);
-            text_payment_info.setText(PagoInfo);
-            text_total_date.setText(PaymentDue_string);
+                field_name.setText(allInfo);
+                text_payment_info.setText(PagoInfo);
+                text_total_date.setText(PaymentDue_string);
+            }
+            else{
+                String PagoInfo = String.format("%s\n%s", "To Quote", "To Quote");
+                String PaymentDue_string = String.format("%s", "To Quote");
+
+                field_name.setText(allInfo);
+                text_payment_info.setText(PagoInfo);
+                text_total_date.setText(PaymentDue_string);
+            }
         }
 
         Button button_accept = dialog.findViewById(R.id.Button_Accept_Request);

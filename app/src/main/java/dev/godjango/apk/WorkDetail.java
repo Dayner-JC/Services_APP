@@ -3,6 +3,7 @@ package dev.godjango.apk;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -68,18 +69,31 @@ public class WorkDetail extends AppCompatActivity implements PopUpDeleteWork.OnD
             String priceService = cardData.getString("Price Service");
             String timeService = cardData.getString("Time");
             int imageId = cardData.getInt("Image");
-
-            fieldDates.setText(name + "\n" + lastName + "\n" + email + "\n" + "PayPal" + "\n" + countryNumber + " " + phoneNumber + "\n" + country);
-            paymentDates.setText(amountPaid + "0$" + "\n" + priceService + "0$");
-
-            if(priceService != null && amountPaid != null) {
-                double total_to_pay = Double.parseDouble(priceService) - Double.parseDouble(amountPaid);
-                totalToPay.setText(total_to_pay + "0$");
-            }
-            image.setImageResource(imageId);
             date.setText(cardData.getString("Request Date"));
-            price.setText("$ " + priceService + "0");
-            time.setText(timeService);
+            fieldDates.setText(name + "\n" + lastName + "\n" + email + "\n" + "PayPal" + "\n" + countryNumber + " " + phoneNumber + "\n" + country);
+            image.setImageResource(imageId);
+
+            if(!amountPaid.equals("0.0")) {
+                paymentDates.setText(amountPaid + "0$" + "\n" + priceService + "0$");
+
+                if (priceService != null && amountPaid != null) {
+                    double total_to_pay = Double.parseDouble(priceService) - Double.parseDouble(amountPaid);
+                    totalToPay.setText(total_to_pay + "0$");
+                }
+
+                price.setText("$ " + priceService + "0");
+                time.setText(timeService);
+            }
+            else{
+                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) price.getLayoutParams();
+                int newMarginEnd = UnitConverter.dpToPx(this,19);
+                params.setMarginEnd(newMarginEnd);
+                price.setLayoutParams(params);
+                paymentDates.setText("To Quote" + "\n" + "To Quote");
+                price.setText("To Quote");
+                totalToPay.setText("To Quote");
+                time.setText("");
+            }
         }
 
         ((TextView) findViewById(R.id.Categoria)).setText(category);

@@ -1,8 +1,11 @@
-/*package dev.godjango.apk;
+package dev.godjango.apk;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,27 +20,42 @@ import org.json.JSONObject;
 
 public class PasswordReset extends AppCompatActivity {
     private EditText email;
+    private TextView errorText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_password_reset);
+        setContentView(R.layout.password_reset);
 
         email = findViewById(R.id.email);
         Button resetButton = findViewById(R.id.resetButton);
+        errorText = findViewById(R.id.email_error_text);
 
+        errorText.setVisibility(View.GONE);
         resetButton.setOnClickListener(v -> resetPassword());
     }
 
+    @SuppressLint("SetTextI18n")
     private void resetPassword() {
         String email_text = email.getText().toString();
 
         if (email_text.isEmpty()) {
-            Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show();
+            errorText.setText("Enter a email");
+            errorText.setVisibility(View.VISIBLE);
+            email.setBackgroundResource(R.drawable.error_bg);
+            return;
+        }
+        if(!email_text.endsWith("@gmail.com")){
+            errorText.setText("Enter a valid email");
+            errorText.setVisibility(View.VISIBLE);
+            email.setBackgroundResource(R.drawable.error_bg);
             return;
         }
 
-        String url = "http://127.0.0.1/auth/users/reset_password/";
+        email.setBackgroundResource(R.drawable.edit_text_background);
+        errorText.setVisibility(View.GONE);
+
+        String url = "http://192.168.43.9:3000/auth/users/reset_password/";
 
         JSONObject resetData = new JSONObject();
         try {
@@ -58,4 +76,5 @@ public class PasswordReset extends AppCompatActivity {
         queue.add(jsonObjectRequest);
     }
 }
-*/
+
+
