@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <string name="web_client_id">351236029153-s6lk5ffb0n5uok6kc6cm6vbp7jvhboan.apps.googleusercontent.com</string>
+    <string name="web_client_id">******************</string>
     <string name="_000_0000_0000">000 0000 0000</string>
     <string name="_1">+1</string>
     <string name="_10_00">$ 10.00</string>
