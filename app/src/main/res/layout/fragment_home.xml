@@ -132,7 +132,7 @@
                     android:layout_marginEnd="-20dp"
                     xmnls:layout_collapseMode="parallax"/>
 
-                <dev.godjango.apk.PageIndicator
+                <dev.godjango.apk.utils.PageIndicator
                     android:id="@+id/page_indicator"
                     android:layout_width="85dp"
                     android:layout_height="27dp"

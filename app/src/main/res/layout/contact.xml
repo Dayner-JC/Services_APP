@@ -59,7 +59,7 @@
             android:background="@drawable/edit_text_background"
             android:backgroundTint="#f6f6f6"
             android:fontFamily="@font/sf_pro_"
-            android:hint="@string/message"
+            android:hint="@string/messageData"
             android:inputType="text"
             android:paddingStart="20dp"
             android:textColorHint="#801d1f3e"

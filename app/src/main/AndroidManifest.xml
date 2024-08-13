@@ -18,7 +18,7 @@
         android:networkSecurityConfig="@xml/network_security_config">
 
         <activity
-            android:name=".PasswordResetConfirm"
+            android:name=".ui.activities.PasswordResetConfirmActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -31,27 +31,27 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".PasswordReset"
+        <activity android:name=".ui.activities.PasswordResetActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
-            android:name=".WorkDetail"
+            android:name=".ui.activities.WorkDetailActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
-            android:name=".CardDetail"
+            android:name=".ui.activities.CardDetailActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
-            android:name=".Navigation"
+            android:name=".ui.activities.NavigationActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
-            android:name=".Login"
+            android:name=".ui.activities.LoginActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
-            android:name=".SplashScreen"
+            android:name=".ui.splashScreen.SplashScreen"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
